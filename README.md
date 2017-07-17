@@ -26,23 +26,23 @@ Suppose you are looking for a verse related to this:
 
 James 3:18 And the **fruit** of **righteousness** is sown in peace of them that make peace.
 
-You can run
+You can run ...
 
     kjv -0 fruit righteousness
 
 and get all verses that speak of both fruit and righteousness (including words that start with "fruit" like "fruitful"):
 
-Isaiah 32:16 Then judgment shall dwell in the wilderness, and **righteousness** remain in the **fruit**ful field.  
-Amos 6:12 Shall horses run upon the rock? will one plow there with oxen?  for ye have turned judgment into gall, and the **fruit** of **righteousness** into hemlock: 
-2 Corinthians 9:10 Now he that ministereth seed to the sower both minister bread for your food, and multiply your seed sown, and increase the **fruit**s of your **righteousness**;) 
-Ephesians 5:9 (For the **fruit** of the Spirit is in all goodness and **righteousness** and truth;) 
-Philippians 1:11 Being filled with the **fruit**s of **righteousness**, which are by Jesus Christ, unto the glory and praise of God.  
-Hebrews 12:11 Now no chastening for the present seemeth to be joyous, but grievous: nevertheless afterward it yieldeth the peaceable **fruit** of **righteousness** unto them which are exercised thereby.  
-James 3:18 And the **fruit** of **righteousness** is sown in peace of them that make peace.  
+    Isaiah 32:16 Then judgment shall dwell in the wilderness, and righteousness remain in the fruitful field.  
+    Amos 6:12 Shall horses run upon the rock? will one plow there with oxen?  for ye have turned judgment into gall, and the fruit of righteousness into hemlock: 
+    2 Corinthians 9:10 Now he that ministereth seed to the sower both minister bread for your food, and multiply your seed sown, and increase the fruits of your righteousness;) 
+    Ephesians 5:9 (For the fruit of the Spirit is in all goodness and righteousness and truth;) 
+    Philippians 1:11 Being filled with the fruits of righteousness, which are by Jesus Christ, unto the glory and praise of God.  
+    Hebrews 12:11 Now no chastening for the present seemeth to be joyous, but grievous: nevertheless afterward it yieldeth the peaceable fruit of righteousness unto them which are exercised thereby.  
+    James 3:18 And the fruit of righteousness is sown in peace of them that make peace.  
 
 ## Contextual word search
 
-The default (without ```-0```) is to search and display  with ```-5``` lines of context before and after:
+The default (without ```-0```) is to search and display with ```-5``` lines of context before and after ...
 
     kjv fruit righteousness
 
