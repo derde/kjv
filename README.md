@@ -24,7 +24,7 @@ This is a command line based browser for the KJV Bible.
 
 Suppose you are looking for a verse related to this:
 
-    James 3:18 And the **fruit** of **righteousness** is sown in peace of them that make peace.
+James 3:18 And the **fruit** of **righteousness** is sown in peace of them that make peace.
 
 You can run
 
