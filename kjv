@@ -1,0 +1,140 @@
+#! /bin/bash
+
+# KJV bible by defailt
+BIBLE=$(dirname $0)/kjv.txt
+
+# Show colours in terminal mode, but not in pipe mode
+if tty -s 0>&1 ; then
+    COLOUR="--colour=always"
+    CAT=
+else
+    COLOUR=""
+    CAT=1
+fi
+
+# Do word-wrap because less cannot
+splitlines() {
+    if [ "$SPLITLINES" ] ; then
+        WIDTH=$( stty -a </dev/tty | grep -Po 'columns \d+' | grep -Po '\d+' )
+        perl -pe '$width='$WIDTH'-1; $decision=$width-20; s/(.{$decision,$width})( |$)/$1.(" "x($width-length($1)+1))/eg ;s/  *$//; '; 
+    else
+        cat
+    fi
+}
+
+
+# 
+format() {
+    if [ $CAT ] ; then
+        cat
+    else
+        # pipe the output to a browser
+        WIDTH=$( stty -a </dev/tty | grep -Po 'columns \d+' | grep -Po '\d+' )
+
+    #   # Double line spacing:
+    #   sed 's/^/\n/' |
+    #   fmt -s -w $WIDTH |
+        sed 's/  *$//' |
+        striprefs |
+        splitlines |
+        grep $GREPOPTS $COLOUR "$COLOURREGEX" |
+        GREP_COLORS="ms=32:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36" grep $COLOUR -P '^.*\d+:\d+|$' |
+        $PAGER
+    fi
+}
+
+striprefs() {
+    if [ $STRIPREFS ] ; then
+        sed 's/^[^:]*:[^ ]* //'
+    else
+        cat
+    fi
+}
+
+###########
+GREPOPTS='-Pi'
+BEGIN='\b'
+CONTEXT='-C 5'
+SPLITLINES=
+STRIPREFS=
+PAGER='less -ifR'
+
+parseopt() {
+    case "$OPTIONCHAR" in
+        0) CONTEXT="" ;;
+        [1-9]) CONTEXT="-C $OPTIONCHAR" ;;
+        a) BIBLE=$(dirname $0)/af1953.txt ; SPLITLINES= ;;
+        t) BIBLE=$(dirname $0)/tr1550.txt ; SPLITLINES= ;;  # UTF-8 splitting doesn't work well
+        w) GREPOPTS="${GREPOPTS}w" ;;
+        s) SPLITLINES=yes ;;
+        r) STRIPREFS=yes ; COLOURREGEX='$' ;;
+        p) BEGIN='' ;;
+        o) PAGER=cat ;;
+        *)
+            echo "Usage: [$0] [options] [search words] ..."
+            echo ""
+            echo "  -r  omit verse references"
+            echo "  -w  word search"
+            echo "  -s  word-wrap to terminal size (automatic if output to terminal)"
+            echo "  -p  partial word match (don't search word in any part of a word)"
+            echo "  -0  zero verses context during search
+            echo "  -1 .. -9  more verses context
+            echo "  -t  use tr1550 greek text"
+            echo "  -a  use af1953 afrikaans text"
+            echo "  -o  don't pipe to less, just to stdout"
+            echo ""
+            echo "Shows extracts having all the terms in the adjoining context"
+            echo "With no options, display the text with highlighted verses using less"
+            echo ""
+            echo "   kjv"
+            echo "   kjv liberty spy"
+            echo "   kjv -t Matthew"
+            exit 1
+            ;;
+    esac
+}
+
+while getopts "ostpawr0123456789" OPTIONCHAR ; do
+    parseopt
+done
+shift $((OPTIND-1))
+
+parseswitches() {
+  SWITCHES="$1"
+  SWITCHES="${SWITCHES:1}"
+  while [ "$SWITCHES" ] ; do
+    OPTIONCHAR=${SWITCHES:0:1}
+    parseopt 
+    SWITCHES="${SWITCHES:1}"
+  done
+}
+
+####################################
+COLOURREGEX='$'
+if [ "$1" ] ; then
+    # Late switches processing, Linux style:
+    for ARG in "$@"; do
+        case "$ARG" in
+            -*) parseswitches "$ARG" ;;
+        esac
+    done
+    EVALS=''
+    for REGEX in "$@"; do
+        case "$REGEX" in
+          -*) true ;;
+          *)
+            EVALS="$EVALS | grep $GREPOPTS $CONTEXT '$BEGIN$REGEX' "
+            COLOURREGEX="$BEGIN$REGEX|$COLOURREGEX"
+            ;;
+        esac
+    done
+    EVALS="tr -d $'\r' < $BIBLE $EVALS"
+    eval "$EVALS" | format
+elif tty -s ; then
+    # Remove linefeeds and display in less
+    tr -d $'\r' < $BIBLE | format
+else
+    # Just remove linefeeds and pipe to stdout
+    tr -d $'\r' < $BIBLE
+fi 
+
