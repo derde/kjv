@@ -1,0 +1,87 @@
+#! /bin/bash
+
+# Compare this copy to the KJV distributed with kjv-bible.deb debian package, which provides the
+# 'bible' command.  There are differences in punctuation, typos, and some spelling problems.
+
+function changebooknames() {
+sed '
+s/^Ge/Genesis /;
+s/^Exo/Exodus /;
+s/^Lev/Leviticus /;
+s/^Num/Numbers /;
+s/^Deu/Deuteronomy /;
+s/^Josh/Joshua /;
+s/^Jdgs/Judges /;
+s/^Ruth/Ruth /;
+s/^1Sm/1 Samuel /;
+s/^2Sm/2 Samuel /;
+s/^1Ki/1 Kings /;
+s/^2Ki/2 Kings /;
+s/^1Chr/1 Chronicles /;
+s/^2Chr/2 Chronicles /;
+s/^Ezra/Ezra /;
+s/^Neh/Nehemiah /;
+s/^Est/Esther /;
+s/^Job/Job /;
+s/^Psa/Psalms /;
+s/^Prv/Proverbs /;
+s/^Eccl/Ecclesiastes /;
+s/^SSol/Song of Solomon /;
+s/^Isa/Isaiah /;
+s/^Jer/Jeremiah /;
+s/^Lam/Lamentations /;
+s/^Eze/Ezekiel /;
+s/^Dan/Daniel /;
+s/^Hos/Hosea /;
+s/^Joel/Joel /;
+s/^Amos/Amos /;
+s/^Obad/Obadiah /;
+s/^Jonah/Jonah /;
+s/^Mic/Micah /;
+s/^Nahum/Nahum /;
+s/^Hab/Habakkuk /;
+s/^Zep/Zephaniah /;
+s/^Hag/Haggai /;
+s/^Zec/Zechariah /;
+s/^Mal/Malachi /;
+s/^Mat/Matthew /;
+s/^Mark/Mark /;
+s/^Luke/Luke /;
+s/^John/John /;
+s/^Acts/Acts /;
+s/^Rom/Romans /;
+s/^1Cor/1 Corinthians /;
+s/^2Cor/2 Corinthians /;
+s/^Gal/Galatians /;
+s/^Eph/Ephesians /;
+s/^Phi/Philippians /;
+s/^Col/Colossians /;
+s/^1Th/1 Thessalonians /;
+s/^2Th/2 Thessalonians /;
+s/^1Tim/1 Timothy /;
+s/^2Tim/2 Timothy /;
+s/^Titus/Titus /;
+s/^Phmn/Philemon /;
+s/^Heb/Hebrews /;
+s/^Jas/James /;
+s/^1Pet/1 Peter /;
+s/^2Pet/2 Peter /;
+s/^1Jn/1 John /;
+s/^2Jn/2 John /;
+s/^3Jn/3 John /;
+s/^Jude/Jude /;
+s/^Rev/Revelation /;
+'
+}
+
+yes '' | timeout 1 bible -l 10913 -f > kjv-bible-deb.raw
+egrep -v "bible: Debian/BRS|Hit '\?' for help|bible.KJV" < kjv-bible-deb.raw | uniq > kjv-bible-deb.cooked
+cat kjv-bible-deb.cooked | changebooknames > kjv-bible-deb
+
+diff -uw kjv.txt kjv-bible-deb | sed 's/ *\r$//' > kjv.patch
+
+
+tr -d "(-)!'?;.,\r" < kjv.txt       > .kjv.txt
+tr -d "(-)!'?;.,\r" < kjv-bible-deb > .kjv-bible-deb
+diff -uw .kjv.txt .kjv-bible-deb | sed 's/ *\r$//' > .kjv.patch
+grep '^[-+]' kjv.patch > differences
