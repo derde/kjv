@@ -1,0 +1,454 @@
+# cat differences2 | tr -d ",.;'" | sed 's/\([^0-9]\):/\1/g; s/^[+-]//; /^$/ d;s/  */ /g' | uniq -ic | grep '^      1 ' | sed 's/      1 //' | less > differences3
+# These are the material differences (non capitalisaion, non punctuation changes)
+# Most of the differences are punctuation
+Genesis 5:3 And Adam lived an hundred and thirty years and begat a son in his own likeness and after his image and called his name Seth
+Genesis 5:3 And Adam lived an hundred and thirty years and begat a son in his own likeness after his image and called his name Seth
+"and" not in av1611
+
+Genesis 13:4 Unto the place of the altar which he had make there at the first and there Abram called on the name of the LORD
+Genesis 13:4 Unto the place of the altar which he had made there at the first and there Abram called on the name of the LORD
+made in av1611
+
+Genesis 14:5 And in the fourteenth year came Chedorlaomer and the kings that were with him and smote the Rephaims in Ashteroth Karnaim and the Zuzims in Ham and the Emins in Shaveh Kiriathaim
+Genesis 14:5 And in the fourteenth year came Chedorlaomer and the kings that were with him and smote the Rephaims in Ashteroth Karnaim and the Zuzims in Ham and the Emims in Shaveh Kiriathaim
+Emims in av1611
+
+Genesis 16:6 But Abram said unto Sarai Behold thy maid is in thine hand do to her as it pleaseth thee And when Sarai dealt hardly with her she fled from her face
+Genesis 16:6 But Abram said unto Sarai Behold thy maid is in thy hand do to her as it pleaseth thee And when Sarai dealt hardly with her she fled from her face
+thy in av1611
+
+Genesis 27:43 Now therefore my son obey my voice arise flee thou to Laban my brother to Haran
+Genesis 27:43 Now therefore my son obey my voice and arise flee thou to Laban my brother to Haran
+and in av1611
+
+Genesis 28:2 Arise go to Padanaram to the house of Bethuel thy mothers father and take thee a wife from thence of the daughers of Laban thy mothers brother
+Genesis 28:2 Arise go to Padanaram to the house of Bethuel thy mothers father and take thee a wife from thence of the daughters of Laban thy mothers brother
+spelling
+
+Genesis 28:6 When Esau saw that Isaac had blessed Jacob and sent him away to Padanaram to take him a wife from thence and that as he blessed him he gave him a charge saying Thou shalt not take a wife of the daughers of Canaan
+Genesis 28:6 When Esau saw that Isaac had blessed Jacob and sent him away to Padanaram to take him a wife from thence and that as he blessed him he gave him a charge saying Thou shalt not take a wife of the daughters of Canaan
+spelling
+
+colon in av1611
+Genesis 29:33 And she conceived again and bare a son and said Because the LORD hath heard I was hated he hath therefore given me this son also and she called his name Simeon
+Genesis 29:33 And she conceived again and bare a son and said Because the LORD hath heard that I was hated he hath therefore given me this son also and she called his name Simeon
+
+that in av1611
+Genesis 30:37 And Jacob took him rods of green poplar and of the hazel and chesnut tree and pilled white strakes in them and made the white appear which was in the rods
+Genesis 30:37 And Jacob took him rods of green poplar and of the hazel and chestnut tree and pilled white strakes in them and made the white appear which was in the rods
+
+spelling
+Genesis 47:4 They said morever unto Pharaoh For to sojourn in the land are we come for thy servants have no pasture for their flocks for the famine is sore in the land of Canaan now therefore we pray thee let thy servants dwell in the land of Goshen
+Genesis 47:4 They said moreover unto Pharaoh For to sojourn in the land are we come for thy servants have no pasture for their flocks for the famine is sore in the land of Canaan now therefore we pray thee let thy servants dwell in the land of Goshen
+
+moreover in av1611
+!Genesis 47:26 And Joseph made it a law over the land of Egypt unto this day that Pharaoh should have the fifth part except the land of the priests only which became not Pharaohs
+!colon in av1611 (neither comma nor semicolon)
+
+Exodus 2:9 And Pharaohs daughter said unto her Take this child away and nurse it for me and I will give thee thy wages And the women took the child and nursed it
+Exodus 2:9 And Pharaohs daughter said unto her Take this child away and nurse it for me and I will give thee thy wages And the woman took the child and nursed it
+woman in av1611
+
+Exodus 10:14 And the locust went up over all the land of Egypt and rested in all the coasts of Egypt very grievous were they before them there were no such locusts as they neither after them shall be such
+Exodus 10:14 And the locusts went up over all the land of Egypt and rested in all the coasts of Egypt very grievous were they before them there were no such locusts as they neither after them shall be such
+locusts in av1611
+
+Exodus 23:17 Three items in the year all thy males shall appear before the LORD God
+Exodus 23:17 Three times in the year all thy males shall appear before the LORD God
+times in av1611
+
+Exodus 25:34 And in the candlesticks shall be four bowls made like unto almonds with their knops and their flowers
+Exodus 25:34 And in the candlestick shall be four bowls made like unto almonds with their knops and their flowers
+candlestick singular in av1611
+
+comma in av1611
+Exodus 38:22 And Bezaleel the son Uri the son of Hur of the tribe of Judah made all that the LORD commanded Moses
+Exodus 38:22 And Bezaleel the son of Uri the son of Hur of the tribe of Judah made all that the LORD commanded Moses
+
+of in av1611
+Leviticus 22:13 But if the priests daughter be a widow or divorced and have no child and is returned unto her fathers house as in her youth she shall eat of her fathers meat but there shall be no stranger eat thereof
+Leviticus 22:13 But if the priests daughter be a widow or divorced and have no child and is returned unto her fathers house as in her youth she shall eat of her fathers meat but there shall no stranger eat thereof
+
+no "be" in av1611
+Leviticus 26:11 And I set my tabernacle among you and my soul shall not abhor you
+Leviticus 26:11 And I will set my tabernacle among you and my soul shall not abhor you
+
+will in av1611
+Deuteronomy 2:11 Which also were accounted giants as the Anakims but the Moabites called them Emims
+Deuteronomy 2:11 Which also were accounted giants as the Anakims but the Moabites call them Emims
+
+"call" in av1611
+Deuteronomy 7:25 The graven images of their gods shall ye burn with fire thou shalt not desire the silver or gold that is on them nor take it unto thee lest thou be snared therin for it is an abomination to the LORD thy God
+Deuteronomy 7:25 The graven images of their gods shall ye burn with fire thou shalt not desire the silver or gold that is on them nor take it unto thee lest thou be snared therein for it is an abomination to the LORD thy God
+
+Joshua 1:7 Only be thou strong and very courageous that thou mayest observe to do according to all the law which Moses my servant commanded thee turn not from it to the right hand or to the left that thou mayest prosper withersoever thou goest
+Joshua 1:7 Only be thou strong and very courageous that thou mayest observe to do according to all the law which Moses my servant commanded thee turn not from it to the right hand or to the left that thou mayest prosper whithersoever thou goest
+
+Joshua 7:2 And Joshua sent men from Jericho to Ai which is beside Bethaven on the east of Bethel and spake unto them saying Go up and view the country And the men went up and viewed Ai
+Joshua 7:2 And Joshua sent men from Jericho to Ai which is beside Bethaven on the east side of Bethel and spake unto them saying Go up and view the country And the men went up and viewed Ai
+
+Joshua 13:14 Only unto the tribes of Levi he gave none inheritance the sacrifices of the LORD God of Israel made by fire are their inheritance as he said unto them
+Joshua 13:14 Only unto the tribe of Levi he gave none inheritance the sacrifices of the LORD God of Israel made by fire are their inheritance as he said unto them
+
+Joshua 18:23 And Avim and Pharah and Ophrah
+Joshua 18:23 And Avim and Parah and Ophrah
+
+Joshua 24:11 And you went over Jordan and came unto Jericho and the men of Jericho fought against you the Amorites and the Perizzites and the Canaanites and the Hittites and the Girgashites the Hivites and the Jebusites and I delivered them into your hand
+Joshua 24:11 And ye went over Jordan and came unto Jericho and the men of Jericho fought against you the Amorites and the Perizzites and the Canaanites and the Hittites and the Girgashites the Hivites and the Jebusites and I delivered them into your hand
+
+Judges 9:54 Then he called hastily unto the young man his armourbearer and said unto him Draw thy sword and slay me that men say not of me A women slew him And his young man thrust him through and he died
+Judges 9:54 Then he called hastily unto the young man his armourbearer and said unto him Draw thy sword and slay me that men say not of me A woman slew him And his young man thrust him through and he died
+
+1 Samuel 10:27 But the children of Belial said How shall this man save us? And they despised him and brought no presents But he held his peace
+1 Samuel 10:27 But the children of Belial said How shall this man save us? And they despised him and brought him no presents But he held his peace
+
+1 Samuel 15:33 And Samuel said As the sword hath made women childless so shall thy mother be childless among women And Samuel hewed Agag in pieces before the LORD in Gilgal
+1 Samuel 15:33 And Samuel said As thy sword hath made women childless so shall thy mother be childless among women And Samuel hewed Agag in pieces before the LORD in Gilgal
+
+1 Samuel 17:17 And Jesse said unto David his son Take now for thy brethren an ephah of this parched corn and these ten loaves and run to the camp of thy brethren
+1 Samuel 17:17 And Jesse said unto David his son Take now for thy brethren an ephah of this parched corn and these ten loaves and run to the camp to thy brethren
+
+1 Samuel 25:20 And it was so as she rode on the ass that she came down by the covert on the hill and behold David and his men came down against her and she met them
+1 Samuel 25:20 And it was so as she rode on the ass that she came down by the covert of the hill and behold David and his men came down against her and she met them
+
+2 Samuel 14:10 And the king said Whoever saith ought unto thee bring him to me and he shall not touch thee any more
+2 Samuel 14:10 And the king said Whosoever saith ought unto thee bring him to me and he shall not touch thee any more
+
+1 Kings 6:30 And the floors of the house he overlaid with gold within and without
+1 Kings 6:30 And the floor of the house he overlaid with gold within and without
+
+1 Kings 22:22 And the LORD said unto him Wherewith? And he said I will go forth and I will be a lying spirit in the mouth of all his prophets And he said Thou shalt persude him and prevail also go forth and do so
+1 Kings 22:22 And the LORD said unto him Wherewith? And he said I will go forth and I will be a lying spirit in the mouth of all his prophets And he said Thou shalt persuade him and prevail also go forth and do so
+
+2 Kings 4:34 And he went up and lay upon the child and put his mouth upon his mouth and his eyes upon his eyes and his hands upon his hands and stretched himself upon the child and the flesh of the child waxed warm
+2 Kings 4:34 And he went up and lay upon the child and put his mouth upon his mouth and his eyes upon his eyes and his hands upon his hands and he stretched himself upon the child and the flesh of the child waxed warm
+
+2 Kings 16:17 And king Ahaz cut off the borders of the bases and removed the laver from off them and took down the sea from off the brasen oxen that were under it and put it upon the pavement of stones
+2 Kings 16:17 And king Ahaz cut off the borders of the bases and removed the laver from off them and took down the sea from off the brasen oxen that were under it and put it upon a pavement of stones
+
+2 Kings 18:10 And at the end of three years they took it even in the sixth year of Hezekiah that is in the ninth year of Hoshea king of Israel Samaria was taken
+2 Kings 18:10 And at the end of three years they took it even in the sixth year of Hezekiah that is the ninth year of Hoshea king of Israel Samaria was taken
+
+2 Kings 25:12 But the captain of the guard left of the door of the poor of the land to be vinedressers and husbandmen
+2 Kings 25:12 But the captain of the guard left of the poor of the land to be vinedressers and husbandmen
+
+2 Chronicles 10:2 And it came to pass when Jeroboam the son of Nebat who was in Egypt whither he fled from the presence of Solomon the king heard it that Jeroboam returned out of Egypt
+2 Chronicles 10:2 And it came to pass when Jeroboam the son of Nebat who was in Egypt whither he had fled from the presence of Solomon the king heard it that Jeroboam returned out of Egypt
+
+2 Chronicles 13:8 And now ye think to withstand the kingdom of the LORD in the hand of the sons of David and ye be a great multitude and there are with your golden calves which Jeroboam made you for gods
+2 Chronicles 13:8 And now ye think to withstand the kingdom of the LORD in the hand of the sons of David and ye be a great multitude and there are with you golden calves which Jeroboam made you for gods
+
+2 Chronicles 13:19 And Abijah pursued after Jeroboam and took cities from him Bethel with the towns thereof and Jeshanah with the towns thereof and Ephraim with the towns thereof
+2 Chronicles 13:19 And Abijah pursued after Jeroboam and took cities from him Bethel with the towns thereof and Jeshanah with the towns thereof and Ephrain with the towns thereof
+
+2 Chronicles 14:11 And Asa cried unto the LORD his God and said LORD it is nothing with thee to help whether with many or with them that have no power help us O LORD our God for we rest on thee and in thy name we go against this multitude O LORD thou art our God let no man prevail against thee
+2 Chronicles 14:11 And Asa cried unto the LORD his God and said LORD it is nothing with thee to help whether with many or with them that have no power help us O LORD our God for we rest on thee and in thy name we go against this multitude O LORD thou art our God let not man prevail against thee
+
+2 Chronicles 18:29 And the king of Israel said unto Jehoshaphat I will disguise myself and I will go to the battle but put thou on thy robes So the king of Israel disguised himself and they went to the battle
+2 Chronicles 18:29 And the king of Israel said unto Jehoshaphat I will disguise myself and will go to the battle but put thou on thy robes So the king of Israel disguised himself and they went to the battle
+
+2 Chronicles 19:10 And what cause soever shall come to you of your brethren that dwell in your cities between blood and blood between law and commandment statutes and judgments ye shall even warn them that they trespass not against the LORD and so wrath come upon you and upon your brethren this do and ye shall not trespass
+2 Chronicles 19:10 And what cause soever shall come to you of your brethren that dwell in their cities between blood and blood between law and commandment statutes and judgments ye shall even warn them that they trespass not against the LORD and so wrath come upon you and upon your brethren this do and ye shall not trespass
+
+Nehemiah 9:28 But after they had rest they did evil again before thee therefore leftest thou them in the land of their enemies so that they had the dominion over them yet when they returned and cried unto thee thou heardest them from heaven and many times didst thou deliver them according to thy mercies
+Nehemiah 9:28 But after they had rest they did evil again before thee therefore leftest thou them in the hand of their enemies so that they had the dominion over them yet when they returned and cried unto thee thou heardest them from heaven and many times didst thou deliver them according to thy mercies
+
+Nehemiah 10:30 And that we would not give our daughters unto the people of the land not take their daughters for our sons
+Nehemiah 10:30 And that we would not give our daughters unto the people of the land nor take their daughters for our sons
+
+Nehemiah 13:8 And it grieved me sore therefore I cast forth all the household stuff to Tobiah out of the chamber
+Nehemiah 13:8 And it grieved me sore therefore I cast forth all the household stuff of Tobiah out of the chamber
+
+Esther 2:21 In those days while Mordecai sat in the kings gate two of the kings chamberlains Bigthan and Teresh of those which kept the door were wroth and sought to lay hands on the king Ahasuerus
+Esther 2:21 In those days while Mordecai sat in the kings gate two of the kings chamberlains Bigthan and Teresh of those which kept the door were wroth and sought to lay hand on the king Ahasuerus
+
+Esther 4:11 All the kings servants and the people of the kings provinces do know that whosoever whether man or women shall come unto the king into the inner court who is not called there is one law of his to put him to death except such to whom the king shall hold out the golden sceptre that he may live but I have not been called to come in unto the king these thirty days
+Esther 4:11 All the kings servants and the people of the kings provinces do know that whosoever whether man or woman shall come unto the king into the inner court who is not called there is one law of his to put him to death except such to whom the king shall hold out the golden sceptre that he may live but I have not been called to come in unto the king these thirty days
+
+Esther 7:8 Then the king returned out of the palace garden into the place of the banquet of wine and Haman was fallen upon the bed whereon Esther was Then said the king Will he force the queen also before me in the house? As the word went out of kings mouth they covered Hamans face
+Esther 7:9 And Harbonah one of the chamberlains said before the king Behold also the gallows fifty cubits high which Haman had made for Mordecai who spoken good for the king standeth in the house of Haman Then the king said Hang him thereon
+
+Esther 7:8 Then the king returned out of the palace garden into the place of the banquet of wine and Haman was fallen upon the bed whereon Esther was Then said the king Will he force the queen also before me in the house? As the word went out of the kings mouth they covered Hamans face
+Esther 7:9 And Harbonah one of the chamberlains said before the king Behold also the gallows fifty cubits high which Haman had made for Mordecai who had spoken good for the king standeth in the house of Haman Then the king said Hang him thereon
+
+Esther 8:5 And said If it please the king and if I have favour in his sight and the thing seem right before the king and I be pleasing in his eyes let it be written to reverse the letters devised by Haman the son of Hammedatha the Agagite which he wrote to destroy the Jews which are in all the kings provinces
+Esther 8:5 And said If it please the king and if I have found favour in his sight and the thing seem right before the king and I be pleasing in his eyes let it be written to reverse the letters devised by Haman the son of Hammedatha the Agagite which he wrote to destroy the Jews which are in all the kings provinces
+
+Job 3:14 With kings and counsellors of the earth which build desolate places for themselves
+Job 3:14 With kings and counsellors of the earth which built desolate places for themselves
+
+Job 7:13 When I say My bed shall comfort me my couch shall ease my complaints
+Job 7:13 When I say My bed shall comfort me my couch shall ease my complaint
+
+Job 7:21 And why dost thou not pardon my transgression and take away my iniquity? for now shall I sleep in the dust and thou shalt seek me in the morning but I shall not be
+Job 7:21 And why dost thou not pardon my transgression and take away mine iniquity? for now shall I sleep in the dust and thou shalt seek me in the morning but I shall not be
+
+Job 11:12 For vain men would be wise though man be born like a wild asss colt
+Job 11:12 For vain man would be wise though man be born like a wild asss colt
+
+Job 14:3 And doth thou open thine eyes upon such an one and bringest me into judgment with thee?
+Job 14:3 And dost thou open thine eyes upon such an one and bringest me into judgment with thee?
+
+Job 14:18 And surely the mountains falling cometh to nought and the rock is removed out of his place
+Job 14:18 And surely the mountain falling cometh to nought and the rock is removed out of his place
+
+Job 31:25 If I rejoice because my wealth was great and because mine hand had gotten much
+Job 31:25 If I rejoiced because my wealth was great and because mine hand had gotten much
+
+Job 31:29 If I rejoice at the destruction of him that hated me or lifted up myself when evil found him
+Job 31:29 If I rejoiced at the destruction of him that hated me or lifted up myself when evil found him
+
+Psalms 17:7 Shew thy marvellous lovingkindness O thou that savest by thy right hand them which put their trust in thee from those that rise up against them
+Psalms 17:7 Shew thy marvellous loving-kindness O thou that savest by thy right hand them which put their trust in thee from those that rise up against them
+
+Psalms 25:6 Remember O LORD thy tender mercies and thy lovingkindnesses for they have been ever of old
+Psalms 25:6 Remember O LORD thy tender mercies and thy loving-kindnesses for they have been ever of old
+
+Psalms 26:3 For thy lovingkindness is before mine eyes and I have walked in thy truth
+Psalms 26:3 For thy loving-kindness is before mine eyes and I have walked in thy truth
+
+Psalms 32:5 I acknowledge my sin unto thee and mine iniquity have I not hid I said I will confess my transgressions unto the LORD and thou forgavest the iniquity of my sin Selah
+Psalms 32:5 I acknowledged my sin unto thee and mine iniquity have I not hid I said I will confess my transgressions unto the LORD and thou forgavest the iniquity of my sin Selah
+
+Psalms 36:7 How excellent is thy lovingkindness O God! therefore the children of men put their trust under the shadow of thy wings
+Psalms 36:7 How excellent is thy loving-kindness O God! therefore the children of men put their trust under the shadow of thy wings
+
+Psalms 36:10 O continue thy lovingkindness unto them that know thee and thy righteousness to the upright in heart
+Psalms 36:10 O continue thy loving-kindness unto them that know thee and thy righteousness to the upright in heart
+
+Psalms 40:10 I have not hid thy righteousness within my heart I have declared thy faithfulness and thy salvation I have not concealed thy lovingkindness and thy truth from the great congregation
+Psalms 40:11 Withhold not thou thy tender mercies from me O LORD let thy lovingkindness and thy truth continually preserve me
+
+Psalms 40:10 I have not hid thy righteousness within my heart I have declared thy faithfulness and thy salvation I have not concealed thy loving-kindness and thy truth from the great congregation
+Psalms 40:11 Withhold not thou thy tender mercies from me O LORD let thy loving-kindness and thy truth continually preserve me
+
+Psalms 42:8 Yet the LORD will command his lovingkindness in the day time and in the night his song shall be with me and my prayer unto the God of my life
+Psalms 42:8 Yet the LORD will command his loving-kindness in the day time and in the night his song shall be with me and my prayer unto the God of my life
+
+Psalms 48:9 We have thought of thy lovingkindness O God in the midst of thy temple
+Psalms 48:9 We have thought of thy loving-kindness O God in the midst of thy temple
+
+Psalms 50:17 Seeing thou hatest instruction and casteth my words behind thee
+Psalms 50:17 Seeing thou hatest instruction and castest my words behind thee
+
+Psalms 51:1 Have mercy upon me O God according to thy lovingkindness according unto the multitude of thy tender mercies blot out my transgressions
+Psalms 51:1 Have mercy upon me O God according to thy loving-kindness according unto the multitude of thy tender mercies blot out my transgressions
+
+Psalms 52:2 The tongue deviseth mischiefs like a sharp razor working deceitfully
+Psalms 52:2 Thy tongue deviseth mischiefs like a sharp razor working deceitfully
+
+Psalms 63:3 Because thy lovingkindness is better than life my lips shall praise thee
+Psalms 63:3 Because thy loving-kindness is better than life my lips shall praise thee
+
+Psalms 69:16 Hear me O LORD for thy lovingkindness is good turn unto me according to the multitude of thy tender mercies
+Psalms 69:16 Hear me O LORD for thy loving-kindness is good turn unto me according to the multitude of thy tender mercies
+
+Psalms 88:11 Shall thy lovingkindness be declared in the grave? or thy faithfulness in destruction?
+Psalms 88:11 Shall thy loving-kindness be declared in the grave? or thy faithfulness in destruction?
+
+Psalms 89:33 Nevertheless my lovingkindness will I not utterly take from him nor suffer my faithfulness to fail
+Psalms 89:33 Nevertheless my loving-kindness will I not utterly take from him nor suffer my faithfulness to fail
+
+Psalms 89:49 Lord where are thy former lovingkindnesses which thou swarest unto David in thy truth?
+Psalms 89:49 Lord where are thy former loving-kindnesses which thou swarest unto David in thy truth?
+
+Psalms 92:1 IT IS A GOOD THING TO GIVE THANKS UNTO THE LORD AND TO SING PRAISES UNTO THY NAME O MOST HIGH
+Psalms 92:2 To shew forth thy lovingkindness in the morning and thy faithfulness every night
+
+Psalms 92:1 It is a good thing to give thanks unto the LORD and to sing praises unto thy name O most High
+Psalms 92:2 To shew forth thy loving-kindness in the morning and thy faithfulness every night
+
+Psalms 102:12 But thou O LORD shall endure for ever and thy remembrance unto all generations
+Psalms 102:12 But thou O LORD shalt endure for ever and thy remembrance unto all generations
+
+Psalms 103:4 Who redeemeth thy life from destruction who crowneth thee with lovingkindness and tender mercies
+Psalms 103:4 Who redeemeth thy life from destruction who crowneth thee with loving-kindness and tender mercies
+
+Psalms 107:43 Whoso is wise and will observe these things even they shall understand the lovingkindness of the LORD
+Psalms 108:1 O god my heart is fixed I will sing and give praise even with my glory
+
+Psalms 107:43 Whoso is wise and will observe these things even they shall understand the loving-kindness of the LORD
+Psalms 108:1 O God my heart is fixed I will sing and give praise even with my glory
+
+Psalms 119:88 Quicken me after thy lovingkindness so shall I keep the testimony of thy mouth
+Psalms 119:88 Quicken me after thy loving-kindness so shall I keep the testimony of thy mouth
+
+Psalms 119:97 O how I love thy law! it is my meditation all the day
+Psalms 119:97 O how love I thy law! it is my meditation all the day
+
+Psalms 119:149 Hear my voice according unto thy lovingkindness O LORD quicken me according to thy judgment
+Psalms 119:149 Hear my voice according unto thy loving-kindness O LORD quicken me according to thy judgment
+
+Psalms 119:159 Consider how I love thy precepts quicken me O LORD according to thy lovingkindness
+Psalms 119:159 Consider how I love thy precepts quicken me O LORD according to thy loving-kindness
+
+Psalms 138:2 I will worship toward thy holy temple and praise thy name for thy lovingkindness and for thy truth for thou hast magnified thy word above all thy name
+Psalms 138:2 I will worship toward thy holy temple and praise thy name for thy loving-kindness and for thy truth for thou hast magnified thy word above all thy name
+
+Psalms 143:8 Cause me to hear thy lovingkindness in the morning for in thee do I trust cause me to know the way wherein I should walk for I lift up my soul unto thee
+Psalms 143:8 Cause me to hear thy loving-kindness in the morning for in thee do I trust cause me to know the way wherein I should walk for I lift up my soul unto thee
+
+Proverbs 6:26 For by means of a whorish woman a man is brought to a piece of bread and the adultress will hunt for the precious life
+Proverbs 6:26 For by means of a whorish woman a man is brought to a piece of bread and the adulteress will hunt for the precious life
+
+Proverbs 24:24 He that saith unto the wicked Thou are righteous him shall the people curse nations shall abhor him
+Proverbs 24:24 He that saith unto the wicked Thou art righteous him shall the people curse nations shall abhor him
+
+Proverbs 26:9 As a thorn goeth up into the hand of a drunkard so is a parable in the mouths of fools
+Proverbs 26:9 As a thorn goeth up into the hand of a drunkard so is a parable in the mouth of fools
+
+Isaiah 13:18 Their bows also shall dash the young men to pieces and they shall have no pity on the fruit of the womb their eyes shall not spare children
+Isaiah 13:18 Their bows also shall dash the young men to pieces and they shall have no pity on the fruit of the womb their eye shall not spare children
+
+Isaiah 22:2 Thou that art full of stirs a tumultuous city joyous city thy slain men are not slain with the sword nor dead in battle
+Isaiah 22:2 Thou that art full of stirs a tumultuous city a joyous city thy slain men are not slain with the sword nor dead in battle
+
+Isaiah 60:14 The sons also of them that afflicted thee shall come bending unto thee and all they that despised thee shall bow themselves down at the soles of thy feet and they shall call thee The city of the LORD The Zion of the Holy One of Israel
+Isaiah 60:15 Whereas thou has been forsaken and hated so that no man went through thee I will make thee an eternal excellency a joy of many generations
+
+Isaiah 60:14 The sons also of them that afflicted thee shall come bending unto thee and all they that despised thee shall bow themselves down at the soles of thy feet and they shall call thee The city of the LORD The Zion of the Holy One of Israel
+Isaiah 60:15 Whereas thou hast been forsaken and hated so that no man went through thee I will make thee an eternal excellency a joy of many generations
+
+Isaiah 63:7 I will mention the lovingkindnesses of the LORD and the praises of the LORD according to all that the LORD hath bestowed on us and the great goodness toward the house of Israel which he hath bestowed on them according to his mercies and according to the multitude of his lovingkindnesses
+Isaiah 63:7 I will mention the loving-kindnesses of the LORD and the praises of the LORD according to all that the LORD hath bestowed on us and the great goodness toward the house of Israel which he hath bestowed on them according to his mercies and according to the multitude of his loving-kindnesses
+
+Jeremiah 9:24 But let him that glorieth glory in this that he understandeth and knoweth me that I am the LORD which exercise lovingkindness judgment and righteousness in the earth for in these things I delight saith the LORD
+Jeremiah 9:24 But let him that glorieth glory in this that he understandeth and knoweth me that I am the LORD which exercise loving-kindness judgment and righteousness in the earth for in these things I delight saith the LORD
+
+Jeremiah 16:5 For thus saith the LORD Enter not into the house of mourning neither go to lament nor bemoan them for I have taken away my peace from this people saith the LORD even lovingkindness and mercies
+Jeremiah 16:5 For thus saith the LORD Enter not into the house of mourning neither go to lament nor bemoan them for I have taken away my peace from this people saith the LORD even loving-kindness and mercies
+
+Jeremiah 30:11 For I am with thee saith the LORD to save thee though I make a full end of all nations whither I have scattered thee yet I will not make a full end of thee but I will correct thee in measure and will not leave thee altogether unpunished
+Jeremiah 30:11 For I am with thee saith the LORD to save thee though I make a full end of all nations whither I have scattered thee yet will I not make a full end of thee but I will correct thee in measure and will not leave thee altogether unpunished
+
+Jeremiah 30:24 The fierce anger of the LORD shall not return until he hath done it and until he have performed the intents of his heart in the latter days ye shall consider it
+Jeremiah 30:24 The fierce anger of the LORD shall not return until he have done it and until he have performed the intents of his heart in the latter days ye shall consider it
+
+Jeremiah 31:3 The LORD hath appeared of old unto me saying Yea I have loved thee with an everlasting love therefore with lovingkindness have I drawn thee
+Jeremiah 31:3 The LORD hath appeared of old unto me saying Yea I have loved thee with an everlasting love therefore with loving-kindness have I drawn thee
+
+Jeremiah 32:18 Thou shewest lovingkindness unto thousands and recompensest the iniquity of the fathers into the bosom of their children after them the Great the Mighty God the LORD of hosts is his name
+Jeremiah 32:18 Thou shewest loving-kindness unto thousands and recompensest the iniquity of the fathers into the bosom of their children after them the Great the Mighty God the LORD of hosts is his name
+
+Lamentations 3:27 It is good for a man that he bear the yoke of his youth
+Lamentations 3:27 It is good for a man that he bear the yoke in his youth
+
+Ezekiel 16:29 Thou hast moreover multiplied thy fornication in the land of Canaan unto Chaldea and yet thou wast not satisfied therewith
+Ezekiel 16:29 Thou hast moreover multiplied thy fornication in the land of Canaan unto Chaldea and yet thou wast not satisfied herewith
+
+Ezekiel 20:29 Then I said unto them What is the high place whereunto ye go? And the name whereof is called Bamah unto this day
+Ezekiel 20:29 Then I said unto them What is the high place whereunto ye go? And the name thereof is called Bamah unto this day
+
+Ezekiel 22:21 Yea I will gather you and blow upon you in the fire of my wrath and ye shall be melted in the midst therof
+Ezekiel 22:21 Yea I will gather you and blow upon you in the fire of my wrath and ye shall be melted in the midst thereof
+
+Ezekiel 31:4 The waters made him great the deep set him up on high with her rivers running round about his plants and sent her little rivers unto all the trees of the field
+Ezekiel 31:4 The waters made him great the deep set him up on high with her rivers running round about his plants and sent out her little rivers unto all the trees of the field
+
+Ezekiel 42:4 And before the chambers was a walk to ten cubits breadth inward a way of one cubit and their doors toward the north
+Ezekiel 42:4 And before the chambers was a walk of ten cubits breadth inward a way of one cubit and their doors toward the north
+
+Daniel 3:22 Therefore because the kings commandment was urgent and the furnace exceeding hot the flames of the fire slew those men that took up Shadrach Meshach and Abednego
+Daniel 3:22 Therefore because the kings commandment was urgent and the furnace exceeding hot the flame of the fire slew those men that took up Shadrach Meshach and Abednego
+
+Daniel 6:23 Then was the king exceedingly glad for him and commanded that they should take Daniel up out of the den So Daniel was taken up out of the den and no manner of hurt was found upon him because he believed in his God
+Daniel 6:23 Then was the king exceeding glad for him and commanded that they should take Daniel up out of the den So Daniel was taken up out of the den and no manner of hurt was found upon him because he believed in his God
+
+Daniel 8:11 Yea he magnified himself even to the prince of the host and by him the daily sacrifice was taken away and the place of the sanctuary was cast down
+Daniel 8:11 Yea he magnified himself even to the prince of the host and by him the daily sacrifice was taken away and the place of his sanctuary was cast down
+
+Daniel 11:27 And both of these kings hearts shall be to do mischief and they shall speak lies at one table but it shall not prosper for yet the end shall be at the time appointed
+Daniel 11:27 And both these kings hearts shall be to do mischief and they shall speak lies at one table but it shall not prosper for yet the end shall be at the time appointed
+
+Hosea 2:18 And in that day will I make a covenant for them with the beasts of the field and with the fowls of heaven and with the creeping things of the ground and I will break the bow and the sword and the battle out of the earth and will make them to lie down safely
+Hosea 2:19 And I will betroth thee unto me for ever yea I will betroth thee unto me in righteousness and in judgment and in lovingkindness and in mercies
+
+Hosea 2:18 And in that day will I make a covenant for them with the beasts of the field and with the fowls of heaven and with the creeping things of the ground and I will break the bow and the sword and the battle out of the earth and will make them to lie down safely
+Hosea 2:19 And I will betroth thee unto me for ever yea I will betroth thee unto me in righteousness and in judgment and in loving-kindness and in mercies
+
+Hosea 11:5 He shall not return into the land of Egypt and the Assyrian shall be his king because they refused to return
+Hosea 11:5 He shall not return into the land of Egypt but the Assyrian shall be his king because they refused to return
+
+Joel 2:31 The sun shall be turned into darkness and the moon into blood before the great and terrible day of the LORD come
+Joel 2:31 The sun shall be turned into darkness and the moon into blood before the great and the terrible day of the LORD come
+
+Joel 3:18 And it shall come to pass in that day that the mountains shall drop down new wine and the hills shall flow with milk and all the rivers of Judah shall flow with waters and a fountain shall come forth out of the house of the LORD and shall water the valley of Shittim
+Joel 3:18 And it shall come to pass in that day that the mountains shall drop down new wine and the hills shall flow with milk and all the rivers of Judah shall flow with waters and a fountain shall come forth of the house of the LORD and shall water the valley of Shittim
+
+Obadiah 1:7 All the men of thy confederacy have brought thee even to the border the men that were at peace with thee have deceived thee and prevailed against thee that they eat thy bread have laid a wound under thee there is none understanding in him
+Obadiah 1:7 All the men of thy confederacy have brought thee even to the border the men that were at peace with thee have deceived thee and prevailed against thee they that eat thy bread have laid a wound under thee there is none understanding in him
+
+Jonah 1:15 So they look up Jonah and cast him forth into the sea and the sea ceased from her raging
+Jonah 1:15 So they took up Jonah and cast him forth into the sea and the sea ceased from her raging
+
+Jonah 4:11 And should not I spare Nineveh that great city wherein are more then sixscore thousand persons that cannot discern between their right hand and their left hand and also much cattle?
+Jonah 4:11 And should not I spare Nineveh that great city wherein are more than sixscore thousand persons that cannot discern between their right hand and their left hand and also much cattle?
+
+Habakkuk 1:5 Behold ye among the heathen and regard and wonder marvelously for I will work a work in your days which ye will not believe though it be told you
+Habakkuk 1:6 For lo I raise up the Chaldeans that bitter and hasty nation which shall march through the breadth of the land to possess the dwellingplaces that are not theirs
+
+Habakkuk 1:5 Behold ye among the heathen and regard and wonder marvellously for I will work a work in your days which ye will not believe though it be told you
+Habakkuk 1:6 For lo I raise up the Chaldeans that bitter and hasty nation which shall march through the breadth of the land to possess the dwellingplaces that are not theirs
+
+Matthew 5:21 Ye have heard that it was said of them of old time Thou shalt not kill and whosoever shall kill shall be in danger of the judgment
+Matthew 5:21 Ye have heard that it was said by them of old time Thou shalt not kill and whosoever shall kill shall be in danger of the judgment
+
+Matthew 16:3 And in the morning It will be foul weather to day for the sky is red and lowering O ye hypocrites ye can discern the face of the sky but can ye not discern the signs of the times?
+Matthew 16:3 And in the morning It will be foul weather to day for the sky is red and lowring O ye hypocrites ye can discern the face of the sky but can ye not discern the signs of the times?
+
+Mark 2:6 But there was certain of the scribes sitting there and reasoning in their hearts
+Mark 2:6 But there were certain of the scribes sitting there and reasoning in their hearts
+
+Mark 15:2 And Pilate asked him Art thou the King of the Jews? And he answering said unto them Thou sayest it
+Mark 15:2 And Pilate asked him Art thou the King of the Jews? And he answering said unto him Thou sayest it
+
+John 21:18 Verily verily I say unto thee When thou wast young thou girdest thyself and walkedst whither thou wouldest but when thou shalt be old thou shalt stretch forth thy hands and another shall gird thee and carry thee whither thou wouldest not
+John 21:18 Verily verily I say unto thee When thou wast young thou girdedst thyself and walkedst whither thou wouldest but when thou shalt be old thou shalt stretch forth thy hands and another shall gird thee and carry thee whither thou wouldest not
+
+Acts 2:20 The sun shall be turned into darkness and the moon into blood before the great and notable day of the Lord come
+Acts 2:20 The sun shall be turned into darkness and the moon into blood before that great and notable day of the Lord come
+
+Acts 2:36 Therefore let all the house of Israel know assuredly that God hath made the same Jesus whom ye have crucified both Lord and Christ
+Acts 2:36 Therefore let all the house of Israel know assuredly that God hath made that same Jesus whom ye have crucified both Lord and Christ
+
+Acts 10:11 And saw heaven opened and a certain vessel descending upon him as it had been a great sheet knit at the four corners and let down to the earth
+Acts 10:11 And saw heaven opened and a certain vessel descending unto him as it had been a great sheet knit at the four corners and let down to the earth
+
+Acts 10:24 And the morrow after they entered into Caesarea And Cornelius waited for them and he had called together his kinsmen and near friends
+Acts 10:24 And the morrow after they entered into Caesarea And Cornelius waited for them and had called together his kinsmen and near friends
+
+Acts 10:41 Not to all the people but unto witnesses chosen before God even to us who did eat and drink with him after he rose from the dead
+Acts 10:41 Not to all the people but unto witnesses chosen before of God even to us who did eat and drink with him after he rose from the dead
+
+Acts 13:22 And when he had removed him he raised up unto them David to be their king to whom also he gave their testimony and said I have found David the son of Jesse a man after mine own heart which shall fulfil all my will
+Acts 13:22 And when he had removed him he raised up unto them David to be their king to whom also he gave testimony and said I have found David the son of Jesse a man after mine own heart which shall fulfil all my will
+
+Acts 15:22 Then pleased it the apostles and elders with the whole church to send chosen men of their own company to Antioch with Paul and Barnabas namely Judas surnamed Barsabas and Silas chief men among the brethren
+Acts 15:23 And they wrote letters by them after this manner The apostles and elders and brethren send greeting unto the brethren which are of the Gentiles in Antioch and Syria and Cilicia
+
+Acts 15:22 Then pleased it the apostles and elders with the whole church to send chosen men of their own company to Antioch with Paul and Barnabas namely Judas surnamed Barsabas and Silas chief men among the brethren
+Acts 15:23 And they wrote letters by them after this manner The apostles and elders and brethren send greeting unto the brethren which are of the Gentiles in Antioch and Syria and Cilicia
+
+Acts 24:16 And herein do I exercise myself to have always a conscience void to offence toward God and toward men
+Acts 24:16 And herein do I exercise myself to have always a conscience void of offence toward God and toward men
+
+Romans 11:6 And if by grace then is it no more of works otherwise grace is no more grace But if it be of works then it is no more grace otherwise work is no more work
+Romans 11:6 And if by grace then is it no more of works otherwise grace is no more grace But if it be of works then is it no more grace otherwise work is no more work
+
+1 Corinthians 3:22 Whether Paul or Apollos or Cephas or the world or life or death or things present or things to come all are yours
+1 Corinthians 3:22 Whether Paul or Apollos or Cephas or the world or life or death or things present or things to come all are yours
+
+1 Corinthians 4:15 For though ye have ten thousand instructers in Christ yet have ye not many fathers for in Christ Jesus I have begotten you through the gospel
+1 Corinthians 4:15 For though ye have ten thousand instructors in Christ yet have ye not many fathers for in Christ Jesus I have begotten you through the gospel
+
+Galatians 2:20 I am crucified with Christ neverthless I live yet not I but Christ liveth in me and the life which I now live in the flesh I live by the faith of the Son of God who loved me and gave himself for me
+Galatians 2:20 I am crucified with Christ nevertheless I live yet not I but Christ liveth in me and the life which I now live in the flesh I live by the faith of the Son of God who loved me and gave himself for me
+
+1 Timothy 6:14 That thou keep this commandment without spot unrebukable until the appearing of our Lord Jesus Christ
+1 Timothy 6:14 That thou keep this commandment without spot unrebukeable until the appearing of our Lord Jesus Christ
+
+Hebrews 12:24 And to Jesus the mediator of the new covenant and to the blood of sprinkling that speaketh better things that that of Abel
+Hebrews 12:24 And to Jesus the mediator of the new covenant and to the blood of sprinkling that speaketh better things than that of Abel
+
+1 Peter 2:1 Wherefore laying aside all malice and all guile and hypocrisies and envies all evil speakings
+1 Peter 2:1 Wherefore laying aside all malice and all guile and hypocrisies and envies and all evil speakings
