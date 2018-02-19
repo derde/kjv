@@ -53,7 +53,7 @@ class BibleDb:
         '1 Kings': ['1 Kings','1 Kgs','1 Kin','1 Ki','1K'],
         '1 Peter': ['1 Pet','1 Pe','1 Pt','1 P'],
         '1 Samuel': ['1 Sam','1 Sm','1 Sa','1 S'],
-        '1 Thessalonians': ['1 Thess','1 Thes','1 Th'],
+        '1 Thessalonians': ['1 Thess','1 Thes','1 Th', '1 thesalonians'],
         '1 Timothy': ['1 Tim','1 Ti','1 Tm'],
         '2 Chronicles': ['2 Chr','2 Ch','2 Chron'],
         '2 Corinthians': ['2 Cor','2 Co'],
@@ -61,19 +61,19 @@ class BibleDb:
         '2 Kings': ['2 Kings','2 Kgs','2 Kin','2 Ki'],
         '2 Peter': ['2 Pet','2 Pe','2 Pt','2 P'],
         '2 Samuel': ['2 Sam','2 Sm','2 Sa','2 S'],
-        '2 Thessalonians': ['2 Thess','2 Thes','2 Th'],
+        '2 Thessalonians': ['2 Thess','2 Thes','2 Th', '2 thesalonians'],
         '2 Timothy': ['2 Tim','2 Ti','2 Tm'],
         '3 John': ['3 Jn','3 Jhn','3 J'],
         'Acts':            [ 'ac','act'        ],
         'Amos':            [ 'am',        ],
-        'Colossians': ['Col','co','cl'],
+        'Colossians': ['Col','co','cl','colosians' ],
         'Daniel': ['Dan','Da','Dn'],
         'Deuteronomy': ['Deut','De','Dt'],
         'Ecclesiastes': ['Eccl','Eccles','Eccle','Ecc','Ec'],
         'Ephesians':       [ 'ep','ef','eph','ephes'   ],
         'Esther': ['Esth','Est','Es'],
         'Exodus': ['Ex','Exod'],
-        'Ezekiel': ['Ezek','Eze','Ezk','ez'],
+        'Ezekiel': ['Ezek','Eze','Ezk',],
         'Ezra': ['Ezra','Ezr','Ez'],
         'Galatians': ['Gal','Ga','gl'],
         'Genesis': ['Gen','Ge','Gn'],
@@ -163,10 +163,10 @@ class BibleDb:
             r'((verses?|v\.)\s*(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*)|' \
             #5
             r'\b('+self.big_bible_book_regex+r')\b.?\s{0,2}' \
-            #chapter                              verse
-            #678       9                    10      11   12  13                14       15-16            17      18-19
+            #chapter                                 verse
+            #678        9                    10      11   12  13                  14       15-16            17      18-19
             r'(((\d+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*(\d+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*)|)|' \
-            #20-22     23                   24      25   26  27                28       29-30            31      32-33
+            #20-22      23                   24      25   26  27                  28       29-30            31      32-33
             r'(((\d+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*(\d+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*))' \
             ), re.I)
         for group in verseref.findall(text):
