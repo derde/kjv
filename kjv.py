@@ -4,17 +4,22 @@
 '''
 Read article from stdin and annotate verses from the text
 1 Corinthians 3:11–15
-–
+-r -  read stdin
+-p tr.txt  Show parallel version
 '''
+
 
 import re
 import sys
 import collections
 
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE,SIG_DFL) 
+
 lastbook=''
 lastchapter=''
 DEBUG = 0
-
+roman_numerals='I II III IV V VI VII VIII IX X XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII XXIII XXIV XXV XXVI XXVII XXVIII XXIX XXX XXXI XXXII XXXIII XXXIV XXXV XXXVI XXXVII XXXVIII XXXIX XL XLI XLII XLIII XLIV XLV XLVI XLVII XLVIII XLIX L LI LII LIII LIV LV LVI LVII LVIII LIX LX LXI LXII LXIII LXIV LXV LXVI LXVII LXVIII LXIX LXX LXXI LXXII LXXIII LXXIV LXXV LXXVI LXXVII LXXVIII LXXIX LXXX LXXXI LXXXII LXXXIII LXXXIV LXXXV LXXXVI LXXXVII LXXXVIII LXXXIX XC XCI XCII XCIII XCIV XCV XCVI XCVII XCVIII XCIX C CI CII CIII CIV CV CVI CVII CVIII CIX CX CXI CXII CXIII CXIV CXV CXVI CXVII CXVIII CXIX CXX CXXI CXXII CXXIII CXXIV CXXV CXXVI CXXVII CXXVIII CXXIX CXXX CXXXI CXXXII CXXXIII CXXXIV CXXXV CXXXVI CXXXVII CXXXVIII CXXXIX CXL CXLI CXLII CXLIII CXLIV CXLV CXLVI CXLVII CXLVIII CXLIX CL CLI CLII CLIII CLIV CLV CLVI CLVII CLVIII CLIX CLX CLXI CLXII CLXIII CLXIV CLXV CLXVI CLXVII CLXVIII CLXIX CLXX CLXXI CLXXII CLXXIII CLXXIV CLXXV CLXXVI CLXXVII CLXXVIII CLXXIX CLXXX CLXXXI CLXXXII CLXXXIII CLXXXIV CLXXXV CLXXXVI CLXXXVII CLXXXVIII CLXXXIX CXC CXCI CXCII CXCIII CXCIV CXCV CXCVI CXCVII CXCVIII CXCIX CC'.split()
 
 class smallcaps:
     normal    = r'''a b c d e f g h i j k l m n o p q r s t u v w x y z'''
@@ -40,9 +45,6 @@ class smallcaps:
 
 
 class BibleDb:
-    fd=open(sys.argv[0].replace('.py','.txt'),'r') # kjv.txt
-    cache=collections.OrderedDict()
-    key_re=re.compile('(.*? \d+:\d+) (.*)')
     big_bible_book_regex=''
     
     abbreviations={
@@ -115,9 +117,12 @@ class BibleDb:
         'Zephaniah': ['Zeph','Zep','Zp'],
     }
 
-    def __init__(self):
+    def __init__(self, source='kjv.txt'):
         if not self.big_bible_book_regex:
             self.build_big_bible_book_regex()
+        self.fd=open(sys.argv[0].replace('kjv.py',source),'r') # kjv.txt
+        self.cache=collections.OrderedDict()
+        self.key_re=re.compile('(.*? \d+:\d+) (.*)')
     
     def __getitem__(self,verseref):
         '''Get a verse without necessarily scanning the whole Bible'''
@@ -165,9 +170,9 @@ class BibleDb:
             r'\b('+self.big_bible_book_regex+r')\b.?\s{0,2}' \
             #chapter                                 verse
             #678        9                    10      11   12  13                  14       15-16            17      18-19
-            r'(((\d+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*(\d+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*)|)|' \
+            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*(\d+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*)|)|' \
             #20-22      23                   24      25   26  27                  28       29-30            31      32-33
-            r'(((\d+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*(\d+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*))' \
+            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*(\d+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*))' \
             ), re.I)
         for group in verseref.findall(text):
             if DEBUG>2 and ''.join(group[2:])!='':
@@ -191,10 +196,17 @@ class BibleDb:
                 for ref in format_verserefs(group[5],group[8],group[11],group[12]):
                     yield ref
 
+def deromanise(number):
+    global roman_numerals
+    if number.isalpha() and number.upper() in roman_numerals:
+        number=str(roman_numerals.index(number.upper())+1)
+    return number
+
 def format_verserefs(book,chapter,verse,ranges):
     global lastbook
     global lastchapter
     if not book: book=lastbook
+    chapter = deromanise(chapter)
     if not chapter: chapter=lastchapter
     lastchapter=chapter
     book=book.title()
@@ -296,25 +308,47 @@ def format_verserefs(book,chapter,verse,ranges):
       for verse in verses:
         yield '%s %s:%s' % (abook,chapter,verse)
 
+if __name__=="__main__":
+    import optparse
+    usage="Usage: %prog [options] wordsearch ...\n"+__doc__+"\n"
+    parser=optparse.OptionParser(usage)
+    parser.add_option("-r","--read",dest="read", action="store", default='', help="Read article and add verses")
+    parser.add_option("-p","--parallel",dest="parallel", action="store", default='', help="Display parallel version")
+    parser.add_option("-v","--version",dest="version", action="store", default='kjv.txt', help="Display specific version")
+    #parser.add_option("-f","--file",dest="file", action="store", default='/home/andrewm/af/hack/maintenance20080418.php.csv', help="csv file")
+    #parser.add_option("-v","--verbose",dest="verbose", action="store_true", default=False, help="be noisy")
+    #parser.add_option("-R","--reverse",dest="reverse", action="store_true", default=False, help="Print unmatched lines")
+    (options,args) = parser.parse_args()
 
-bibledb=BibleDb()
+    bibledb=BibleDb(options.version)
 
-textstream = sys.stdin
-if len(sys.argv)>1:
-    textstream=open(sys.argv[1],'r')
+    textstream=None
+    if options.read:
+        if options.read=='-':
+            textstream = sys.stdin
+        else:
+            textstream = open(options.read,'r')
 
-for line in textstream:
-    if not line.endswith('\n'): line+='\n'
-    sys.stdout.write( line )
-    spacer='\n'
-    for ref in bibledb.getverserefs(line):
-        text=bibledb[ref]
-        if text:
-            sys.stdout.write( spacer )
-            spacer=''
-            # sys.stdout.write('  %s %s\n' % ( ref.upper(),text ))
-            sys.stdout.write('  %s %s\n' % ( ref,text ))
-    if spacer=='': 
-        sys.stdout.write('\n')
+    parallel=False
+    if options.parallel:
+        parallel = BibleDb(options.parallel)
 
+    if textstream:
+        for line in textstream:
+            if not line.endswith('\n'): line+='\n'
+            sys.stdout.write( line )
+            spacer='\n'
+            for ref in bibledb.getverserefs(line):
+                texts=[]
+                texts.append(bibledb[ref])
+                if parallel:
+                    texts.append( parallel[ref])
+                for text in texts:
+                    if not text: continue
+                    sys.stdout.write( spacer )
+                    spacer=''
+                    # sys.stdout.write('  %s %s\n' % ( ref.upper(),text ))
+                    sys.stdout.write('  %s %s\n' % ( ref,text ))
+            if spacer=='': 
+                sys.stdout.write('\n')
 

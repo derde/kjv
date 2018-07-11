@@ -354,3 +354,9 @@ and from that you get all the verses that say "fruit" and "**righteousness**" in
     James 4:3 Ye ask, and receive not, because ye ask amiss, that ye may consume it upon your lusts.  
     James 4:4 Ye adulterers and adulteresses, know ye not that the friendship of the world is enmity with God? whosoever therefore will be a friend of the world is the enemy of God.  
     James 4:5 Do ye think that the scripture saith in vain, The spirit that dwelleth in us lusteth to envy?  
+
+
+# Reference: how to get a text for comparison
+curl http://ftp.funet.fi/pub/doc/religion/christian/Bible/unix/bible.tar.gz > bible.tar.gz
+tar -Ozxf bible.tar.gz bible.raw.z | gzip -d > bible.txt
+
