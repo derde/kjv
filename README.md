@@ -360,3 +360,15 @@ and from that you get all the verses that say "fruit" and "**righteousness**" in
 curl http://ftp.funet.fi/pub/doc/religion/christian/Bible/unix/bible.tar.gz > bible.tar.gz
 tar -Ozxf bible.tar.gz bible.raw.z | gzip -d > bible.txt
 
+# kjv.py
+
+This is an alpha-quality tool which can annotate text with references by inserting text from the actual Bible.  This is useful for critically examining documents that cite, but do not quote, a large number of proof texts.  It is also useful for documents that quote false Bible versions.
+
+## Harmony of the gospels
+
+Making a harmony of the gospels is a study of some subtlety, but if you happen to have a list of verses, you can compile them into a harmony as shown below
+
+    ./kjv.py -r harmony.headings > harmony.txt; unix2dos harmony.txt
+    ./kjv.py -r harmony2.headings > harmony2.txt; unix2dos harmony2.txt
+ 
+
