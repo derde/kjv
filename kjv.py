@@ -164,36 +164,38 @@ class BibleDb:
         global DEBUG
         verseref = re.compile( \
             (
-            #01               2       34
-            r'((verses?|v\.)\s*(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*)|' \
+            # 1               2       34
+            r'((verses?|v\.)\s*(\d+)\s*(([-,\&]|–|\.\.)\s*[0-9:]+)*)|' \
             #5
             r'\b('+self.big_bible_book_regex+r')\b.?\s{0,2}' \
             #chapter                                 verse
-            #678        9                    10      11   12  13                  14       15-16            17      18-19
-            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*(\d+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*)|)|' \
-            #20-22      23                   24      25   26  27                  28       29-30            31      32-33
-            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*(\d+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*\d+)*))' \
+            # 678                9                    10      11   12  13                  14       15,16            17      18,19
+            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*([0-9:]+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*[0-9:]+)*)|)|' \
+            # 20-22              23                   24      25   26  27                  28       29-30            31      32-33
+            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*([0-9:]+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*[0-9:]+)*))' \
             ), re.I)
+        offset=0
         for group in verseref.findall(text):
-            if DEBUG>2 and ''.join(group[2:])!='':
+            # TODO: handle 1 2 3 4 ...
+            if DEBUG>2 and ''.join(group[offset+2:])!='':
                 for r in range(0,len(group)):
                     if group[r]: sys.stdout.write(' %d=[%s]' % (r,group[r]))
                 sys.stdout.write('\n')
-            if group[2]:
+            if group[offset+2]:
                 if DEBUG>2: sys.stdout.write('Bare verse ref: \n')
-                for ref in format_verserefs('','',group[2],group[4]):
+                for ref in format_verserefs('','',group[offset+2],group[offset+4]):
                     yield ref
-            elif group[17]:
+            elif group[offset+17]:
                 if DEBUG>2: sys.stdout.write('Following verse ref: \n')
-                for ref in format_verserefs('','',group[17],group[18]):
+                for ref in format_verserefs('','',group[offset+17],group[offset+18]):
                     yield ref
-            elif group[22]:
+            elif group[offset+22]:
                 if DEBUG>2: sys.stdout.write('Bare ref: \n')
-                for ref in format_verserefs('',group[22],group[25],group[26]):
+                for ref in format_verserefs('',group[offset+22],group[offset+25],group[offset+26]):
                     yield ref
             else:
-                if DEBUG>2: sys.stdout.write('Complete ref: \n')
-                for ref in format_verserefs(group[5],group[8],group[11],group[12]):
+                if DEBUG>2: sys.stdout.write('Complete ref: [%s]\n'%group[offset+4])
+                for ref in format_verserefs(group[offset+5],group[offset+8],group[offset+11],group[offset+12]):
                     yield ref
 
 def deromanise(number):
@@ -241,14 +243,6 @@ def format_verserefs(book,chapter,verse,ranges):
         'Daniel':          [ 'da','dn',   ],
         'Deuteronomy':     [ 'de','dt',   ],
         'Ecclesiastes':    [ 'ec',        ],
-        'Ephesians':       [ 'ep','ef',   ],
-        'Esther':          [ 'es',        ],
-        'Exodus':          [ 'ex',        ],
-        'Ezekiel':         [ 'ez',        ],
-        'Ezra':            [ 'ezr',       ],
-        'Galatians':       [ 'ga','gl',   ],
-        'Genesis':         [ 'ge','gn',   ],
-        'Habakkuk':        [ 'ha','hk',   ],
         'Haggai':          [ 'hag',       ],
         'Hebrews':         [ 'he','hb'    ],
         'Hosea':           [ 'ho',        ],
@@ -287,16 +281,33 @@ def format_verserefs(book,chapter,verse,ranges):
     }
     verses=[]
     if verse:
-        verses.append(int(verse))
-        range_re=re.compile('(\D*)(\d+)')
-        not_range_re=re.compile('^is')
+        verses.append('%s:%s' % (chapter,verse))
+        lastverse=verse
+        #                    0    1    2    3
+        range_re=re.compile('(\D*)(\d+)(\D*)(\d*)')
+        not_range_re=re.compile('^is')  # isaiah !? ... fixme .. unused!
+        # Extra range
         for group in range_re.findall(ranges):
-          endverse=int(group[1])
           mm=re.search(r'^\s*(-|\.\.|–)',group[0]) # range, not list ...
+          # Inter-chapter range
+          if mm and group[3] and group[2]:
+            for chapter in range(int(chapter),int(group[1])+1):
+              stop=200
+              if chapter==int(group[1]): stop=int(group[3])
+              for verse in range(int(lastverse)+1,stop+1):
+                verses.append('%s:%s' % (chapter,verse))
+              lastverse=0
+            continue # 
+            
+          # Intra-chapter range
+          endverse=int(group[1])
           if mm:
-            verses.extend(range(verses[-1]+1,endverse+1))
+            for v in range(int(lastverse)+1,endverse+1):
+              verses.append('%s:%s' % (chapter,v))
+              lastverse=v
           else:
-            verses.append(endverse)
+            verses.append('%s:%s' % (chapter,endverse))
+            lastverse=endverse
     abook=''
     for bookname,reflist in refs.items():
       for prefix in reflist:
@@ -305,8 +316,9 @@ def format_verserefs(book,chapter,verse,ranges):
     if abook:
       if len(verses) or len(book)>2:  # don't use "is" and "he" as book changers
           lastbook=abook
-      for verse in verses:
-        yield '%s %s:%s' % (abook,chapter,verse)
+      for c_v in verses:
+        yield '%s %s' % (abook,c_v)
+
 
 if __name__=="__main__":
     import optparse
@@ -315,10 +327,12 @@ if __name__=="__main__":
     parser.add_option("-r","--read",dest="read", action="store", default='', help="Read article and add verses")
     parser.add_option("-p","--parallel",dest="parallel", action="store", default='', help="Display parallel version")
     parser.add_option("-v","--version",dest="version", action="store", default='kjv.txt', help="Display specific version")
+    parser.add_option("-d","--debug",dest="debug", action="count", default=DEBUG, help="DEBUG level")
     #parser.add_option("-f","--file",dest="file", action="store", default='/home/andrewm/af/hack/maintenance20080418.php.csv', help="csv file")
     #parser.add_option("-v","--verbose",dest="verbose", action="store_true", default=False, help="be noisy")
     #parser.add_option("-R","--reverse",dest="reverse", action="store_true", default=False, help="Print unmatched lines")
     (options,args) = parser.parse_args()
+    DEBUG=options.debug
 
     bibledb=BibleDb(options.version)
 
@@ -339,11 +353,11 @@ if __name__=="__main__":
             sys.stdout.write( line )
             spacer='\n'
             for ref in bibledb.getverserefs(line):
-                texts=[]
-                texts.append(bibledb[ref])
+                versetexts=[]
+                versetexts.append(bibledb[ref])
                 if parallel:
-                    texts.append( parallel[ref])
-                for text in texts:
+                    versetexts.append( parallel[ref])
+                for text in versetexts:
                     if not text: continue
                     sys.stdout.write( spacer )
                     spacer=''

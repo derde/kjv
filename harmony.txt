@@ -338,7 +338,7 @@ John the Baptist declares his mission John 1:19-28
   John 1:27 He it is, who coming after me is preferred before me, whose shoe's latchet I am not worthy to unloose.
   John 1:28 These things were done in Bethabara beyond Jordan, where John was baptizing.
 
-John the Baptist proclaims Jesus as the Messiah John 1:29-34
+John the Baptist proclaims Jesus as the Christ John 1:29-34
 
   John 1:29 The next day John seeth Jesus coming unto him, and saith, Behold the Lamb of God, which taketh away the sin of the world.
   John 1:30 This is he of whom I said, After me cometh a man which is preferred before me: for he was before me.
@@ -1233,7 +1233,7 @@ Jesus tells the parable of the four soils Matt 13:1-9 Mark 4:1-9 Luke 8:4-8
   Luke 8:7 And some fell among thorns; and the thorns sprang up with it, and choked it.
   Luke 8:8 And other fell on good ground, and sprang up, and bare fruit an hundredfold. And when he had said these things, he cried, He that hath ears to hear, let him hear.
 
-Jesus explains the Parable of the Four Soils Matt 13:10-23 Mark 4:10-25 Luke 8:9-18 
+Jesus explains the parable of the four soils Matt 13:10-23 Mark 4:10-25 Luke 8:9-18 
 
   Matthew 13:10 And the disciples came, and said unto him, Why speakest thou unto them in parables?
   Matthew 13:11 He answered and said unto them, Because it is given unto you to know the mysteries of the kingdom of heaven, but to them it is not given.
@@ -1864,7 +1864,7 @@ Jesus restores sight to a blind man Mark 8:22-26
   Mark 8:25 After that he put his hands again upon his eyes, and made him look up: and he was restored, and saw every man clearly.
   Mark 8:26 And he sent him away to his house, saying, Neither go into the town, nor tell it to any in the town.
 
-Peter says Jesus is the Messiah Matt 16:13-20 Mark 8:27-30 Luke 9:18-20 
+Peter says Jesus is the Christ Matt 16:13-20 Mark 8:27-30 Luke 9:18-20 
 
   Matthew 16:13 When Jesus came into the coasts of Caesarea Philippi, he asked his disciples, saying, Whom do men say that I the Son of man am?
   Matthew 16:14 And they said, Some say that thou art John the Baptist: some, Elias; and others, Jeremias, or one of the prophets.
@@ -1893,6 +1893,14 @@ Jesus predicts his death the first time Matt 16:21-28 Mark 8:31-9:1 Luke 9:21-27
   Matthew 16:27 For the Son of man shall come in the glory of his Father with his angels; and then he shall reward every man according to his works.
   Matthew 16:28 Verily I say unto you, There be some standing here, which shall not taste of death, till they see the Son of man coming in his kingdom.
   Mark 8:31 And he began to teach them, that the Son of man must suffer many things, and be rejected of the elders, and of the chief priests, and scribes, and be killed, and after three days rise again.
+  Mark 8:32 And he spake that saying openly. And Peter took him, and began to rebuke him.
+  Mark 8:33 But when he had turned about and looked on his disciples, he rebuked Peter, saying, Get thee behind me, Satan: for thou savourest not the things that be of God, but the things that be of men.
+  Mark 8:34 And when he had called the people unto him with his disciples also, he said unto them, Whosoever will come after me, let him deny himself, and take up his cross, and follow me.
+  Mark 8:35 For whosoever will save his life shall lose it; but whosoever shall lose his life for my sake and the gospel's, the same shall save it.
+  Mark 8:36 For what shall it profit a man, if he shall gain the whole world, and lose his own soul?
+  Mark 8:37 Or what shall a man give in exchange for his soul?
+  Mark 8:38 Whosoever therefore shall be ashamed of me and of my words in this adulterous and sinful generation; of him also shall the Son of man be ashamed, when he cometh in the glory of his Father with the holy angels.
+  Mark 9:1 And he said unto them, Verily I say unto you, That there be some of them that stand here, which shall not taste of death, till they have seen the kingdom of God come with power.
   Luke 9:21 And he straitly charged them, and commanded them to tell no man that thing;
   Luke 9:22 Saying, The Son of man must suffer many things, and be rejected of the elders and chief priests and scribes, and be slain, and be raised the third day.
   Luke 9:23 And he said to them all, If any man will come after me, let him deny himself, and take up his cross daily, and follow me.
@@ -1989,7 +1997,7 @@ Peter finds the coin in the fish's mouth Matt 17:24-27
   Matthew 17:26 Peter saith unto him, Of strangers. Jesus saith unto him, Then are the children free.
   Matthew 17:27 Notwithstanding, lest we should offend them, go thou to the sea, and cast an hook, and take up the fish that first cometh up; and when thou hast opened his mouth, thou shalt find a piece of money: that take, and give unto them for me and thee.
 
-The disciples argue about who would be Greatest Matt 18:1-6 Mark 9:33-37 Luke 9:46-48 
+The disciples argue about who would be greatest Matt 18:1-6 Mark 9:33-37 Luke 9:46-48 
 
   Matthew 18:1 At the same time came the disciples unto Jesus, saying, Who is the greatest in the kingdom of heaven?
   Matthew 18:2 And Jesus called a little child unto him, and set him in the midst of them,
