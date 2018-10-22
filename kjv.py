@@ -3,7 +3,7 @@
 
 '''
 Read article from stdin and annotate verses from the text
-1 Corinthians 3:11–15
+1 Corinthians 3:11-15
 -r -  read stdin
 -p tr.txt  Show parallel version
 '''
@@ -170,13 +170,19 @@ class BibleDb:
             r'\b('+self.big_bible_book_regex+r')\b.?\s{0,2}' \
             #chapter                                 verse
             # 678                9                    10      11   12  13                  14       15,16            17      18,19
-            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*([0-9:]+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*[0-9:]+)*)|)|' \
+            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d*)(\s*([-,\&]|-|–|\.\.)\s*([0-9:]+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*[0-9:]+)*)|)|' \
             # 20-22              23                   24      25   26  27                  28       29-30            31      32-33
-            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d+)(\s*([-,\&]|-|–|\.\.)\s*([0-9:]+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*[0-9:]+)*))' \
+            r'(((\d+|[lcxvi]+)\s?([-:.v]|verses?|vers)(\s|\.)?(\d*)(\s*([-,\&]|-|–|\.\.)\s*([0-9:]+))*)|((verses?|v\.)\s+(\d+)\s*(([-,\&]|–|\.\.)\s*[0-9:]+)*))' \
             ), re.I)
         offset=0
         for group in verseref.findall(text):
             # TODO: handle 1 2 3 4 ...
+
+            # Handles the format "John 1:" referring to the entire chapter
+            if group[9]==':' and group[offset+11]=='':
+                a=[] ; a.extend(group); group=a
+                group[offset+11]='1'
+                group[offset+12]='-200'
             if DEBUG>2 and ''.join(group[offset+2:])!='':
                 for r in range(0,len(group)):
                     if group[r]: sys.stdout.write(' %d=[%s]' % (r,group[r]))
@@ -243,6 +249,14 @@ def format_verserefs(book,chapter,verse,ranges):
         'Daniel':          [ 'da','dn',   ],
         'Deuteronomy':     [ 'de','dt',   ],
         'Ecclesiastes':    [ 'ec',        ],
+        'Ephesians':       [ 'ep','ef','eph','ephes'   ],
+        'Esther':          ['esth','est','es'],
+        'Exodus':          ['ex','exod'],
+        'Ezekiel':         ['ezek','eze','ezk',],
+        'Ezra':            ['ezra','ezr','ez'],
+        'Galatians':       ['gal','ga','gl'],
+        'Genesis':         [ 'gen','ge','gn' ],
+        'Habakkuk':        ['hab','hk'],
         'Haggai':          [ 'hag',       ],
         'Hebrews':         [ 'he','hb'    ],
         'Hosea':           [ 'ho',        ],
@@ -276,8 +290,8 @@ def format_verserefs(book,chapter,verse,ranges):
         'Ruth':            [ 'ru',        ],
         'Song of Solomon': [ 'so','ss',   ],
         'Titus':           [ 'ti',        ],
-        'Zecharia':        [ 'ze','zc',   ],
-        'Zephania':        [ 'zp','zep'   ],
+        'Zechariah':       [ 'ze','zc',   ],
+        'Zephaniah':       [ 'zp','zep'   ],
     }
     verses=[]
     if verse:
@@ -333,7 +347,6 @@ if __name__=="__main__":
     #parser.add_option("-R","--reverse",dest="reverse", action="store_true", default=False, help="Print unmatched lines")
     (options,args) = parser.parse_args()
     DEBUG=options.debug
-
     bibledb=BibleDb(options.version)
 
     textstream=None
