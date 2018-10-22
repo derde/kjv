@@ -1,0 +1,187 @@
+Source data requirements:
+
+    Bible text by the verse
+    Psalm titles
+    Book names map - list of chapters in order
+    Italics markup for KJV
+    Psalm titles for KJV
+    Translators' preface, names, etc
+    Per-verse cross references for footer bar
+    Paragraph titles for page header (maybe not)
+    Appendix: Short difficult word list
+    List of Which books have but one chapter (no chapter title)
+    Afrikaans hypenation rules
+
+Typesetting requirements:
+
+    2 column tables
+    Wrap table cell over multiple pages
+    Subtle spacing adjustments to make length comparable (?)
+    Psalm subtitles (for the choirmaster)
+    Chapter drop letters
+    Periodic paragraph alignment (wrap per chapter or per paragraph)
+    One-chapter books must not have chapter headings (Obadiah, Philemon, Jude)
+
+Requirements:
+
+    2 column tables - parcolumns package
+
+\book{GENESIS}{GENESIS}
+\sidebyside{\chapter{GENESIS 1} \verse 1{ }In the beginning ... }{\chapter{GENESIS 1} \verse 1{ }In die begin het God ...}
+\sidebyside{\chapter{GENESIS 2} \verse 1{ }Thus the heavens ... }{\chapter{GENESIS 2} \verse 2{ }SO is dan voltooi ...}
+
+
+    DROP case for chapter numbers
+
+    Italics for marked text
+
+    Superscript size verse numbers
+
+    Book title pages
+
+    Left page top references (Mark 4:3)
+    Right page top references (Markus 5:13)
+    Page numbers
+
+    Psalm titles
+
+    Cross reference bars
+
+    Table of contents
+
+    Flow paragraph printing option: combine verses into one paragraph
+
+
+
+In the beginning ... }{GENESIS 1 \verse 1{ }In die begin het God ...}
+
+
+GENESIS 1                                 GENESIS 1
+
+In the beginning God created the heaven   IN die begin het God die hemel en die
+and the earth.                            aarde geskape.
+And the earth was without form, and       En die aarde was woes en leeg, en
+void; and darkness was upon the face of   duisternis was op die wêreldvloed,
+the deep. And the Spirit of God moved     en die Gees van God het gesweef op
+upon the face of the waters.              die waters.
+And God said, Let there be light:         En God het gesê: Laat daar lig
+and there was light.                      wees! En daar was lig.
+And God saw the light, that it was        Toe sien God dat die lig goed was. En
+good: and God divided the light from      God het skeiding gemaak tussen die lig
+the darkness.                             en die duisternis;
+And God called the light Day, and         en God het die lig dag genoem, en
+the darkness he called Night. And         die duisternis het Hy nag genoem. En
+the evening and the morning were the      dit was aand en dit was môre, die
+first day.                                eerste dag.
+And God said, Let there be a firmament    En God het gesê: Laat daar ’n
+in the midst of the waters, and let it    uitspansel wees tussen die waters, en
+divide the waters from the waters.        laat dit skeiding maak tussen waters
+And God made the firmament, and           en waters.
+divided the waters which were under the   God het toe die uitspansel gemaak en
+firmament from the waters which were      die waters wat onder die uitspansel
+above the firmament: and it was so.       is, geskei van die waters wat bo die
+And God called the firmament              uitspansel is. En dit was so.
+Heaven. And the evening and the morning   En God het die uitspansel hemel
+were the second day.                      genoem. En dit was aand en dit was
+And God said, Let the waters under the    môre, die tweede dag.
+heaven be gathered together unto one      En God het gesê: Laat die waters onder
+place, and let the dry land appear:       die hemel hulle op een plek versamel,
+and it was so.                            sodat die droë grond sigbaar word. En
+And God called the dry land Earth; and    dit was so.
+the gathering together of the waters      En God het die droë grond aarde
+called he Seas: and God saw that it       genoem, en die versameling van die
+was good.                                 waters het Hy see genoem. Toe sien God
+And God said, Let the earth bring         dat dit goed was.
+forth grass, the herb yielding seed,      En God het gesê: Laat die aarde
+and the fruit tree yielding fruit after   voortbring grasspruitjies, plante wat
+his kind, whose seed is in itself,        saad gee en bome wat, volgens hulle
+upon the earth: and it was so.            soorte, vrugte dra, waarin hulle saad
+And the earth brought forth grass,        is, op die aarde. En dit was so.
+and herb yielding seed after his kind,    Die aarde het voortgebring
+and the tree yielding fruit, whose        grasspruitjies, plante wat saad gee
+seed was in itself, after his kind:       volgens hulle soorte en bome wat vrugte
+and God saw that it was good.             dra, waarin hulle saad is, volgens
+And the evening and the morning were      hulle soorte. Toe sien God dat dit
+the third day.                            goed was.
+And God said, Let there be lights in      En dit was aand en dit was môre,
+the firmament of the heaven to divide     die derde dag.
+the day from the night; and let them      En God het gesê: Laat daar ligte
+be for signs, and for seasons, and for    wees aan die uitspansel van die hemel,
+days, and years:                          om skeiding te maak tussen die dag en
+And let them be for lights in the         die nag; en laat hulle dien as tekens
+firmament of the heaven to give light     sowel vir vaste tye, asook vir dae
+upon the earth: and it was so.            sowel as jare.
+And God made two great lights; the        Laat hulle ook dien as ligte aan die
+greater light to rule the day, and        uitspansel van die hemel om lig te gee
+the lesser light to rule the night:       op die aarde. En dit was so.
+he made the stars also.                   God het toe die twee groot ligte
+And God set them in the firmament         gemaak: die groot lig om te heers oor
+of the heaven to give light upon          die dag en die klein lig om te heers
+the earth,                                oor die nag; ook die sterre.
+And to rule over the day and over the     En God het hulle aan die uitspansel
+night, and to divide the light from the   van die hemel gestel om lig te gee op
+darkness: and God saw that it was good.   die aarde
+And the evening and the morning were      en om te heers oor die dag en oor die
+the fourth day.                           nag en om skeiding te maak tussen die
+And God said, Let the waters bring        lig en die duisternis. Toe sien God
+forth abundantly the moving creature      dat dit goed was.
+that hath life, and fowl that may fly     En dit was aand en dit was môre,
+above the earth in the open firmament     die vierde dag.
+of heaven.                                En God het gesê: Laat die waters wemel
+And God created great whales, and every   met ’n gewemel van lewende wesens,
+living creature that moveth, which the    en laat die voëls oor die aarde vlieg
+waters brought forth abundantly, after    langs die uitspansel van die hemel.
+their kind, and every winged fowl after   En God het die groot seediere geskape
+his kind: and God saw that it was good.   en al die lewende wesens wat beweeg,
+And God blessed them, saying, Be          waar die waters van wemel, volgens
+fruitful, and multiply, and fill          hulle soorte; en al die gevleuelde
+the waters in the seas, and let fowl      voëls volgens hulle soorte. Toe sien
+multiply in the earth.                    God dat dit goed was.
+And the evening and the morning were      En God het hulle geseën en gesê:
+the fifth day.                            Wees vrugbaar en vermeerder en vul die
+And God said, Let the earth bring forth   waters in die see, en laat die voëls
+the living creature after his kind,       op die aarde vermeerder.
+cattle, and creeping thing, and beast     En dit was aand en dit was môre,
+of the earth after his kind: and it       die vyfde dag.
+was so.                                   En God het gesê: Laat die aarde
+And God made the beast of the earth       lewende wesens voortbring volgens
+after his kind, and cattle after their    hulle soorte: vee, kruipende diere en
+kind, and every thing that creepeth       wilde diere van die aarde volgens hulle
+upon the earth after his kind: and God    soorte. En dit was so.
+saw that it was good.                     En God het die wilde diere van die
+And God said, Let us make man in our      aarde gemaak volgens hulle soorte
+image, after our likeness: and let them   en die vee volgens hulle soorte en
+have dominion over the fish of the sea,   al die diere wat op die grond kruip,
+and over the fowl of the air, and over    volgens hulle soorte. Toe sien God dat
+the cattle, and over all the earth,       dit goed was.
+and over every creeping thing that        En God het gesê: Laat Ons mense maak
+creepeth upon the earth.                  na ons beeld, na ons gelykenis, en laat
+So God created man in his own image,      hulle heers oor die visse van die see
+in the image of God created he him;       en die voëls van die hemel en die vee
+male and female created he them.          en oor die hele aarde en oor al die
+And God blessed them, and God said        diere wat op die aarde kruip.
+unto them, Be fruitful, and multiply,     En God het die mens geskape na sy
+and replenish the earth, and subdue       beeld; na die beeld van God het Hy
+it: and have dominion over the fish of    hom geskape; man en vrou het Hy hulle
+the sea, and over the fowl of the air,    geskape.
+and over every living thing that moveth   En God het hulle geseën, en God het
+upon the earth.                           vir hulle gesê: Wees vrugbaar en
+And God said, Behold, I have given you    vermeerder en vul die aarde, onderwerp
+every herb bearing seed, which is upon    dit en heers oor die visse van die see
+the face of all the earth, and every      en die voëls van die hemel en oor al
+tree, in the which is the fruit of a      die diere wat op die aarde kruip.
+tree yielding seed; to you it shall be    Verder het God gesê: Ek gee nou aan
+for meat.                                 julle al die plante wat saad gee,
+And to every beast of the earth, and      wat op die hele aarde is, en al die
+to every fowl of the air, and to every    bome waar boomvrugte aan is, wat saad
+thing that creepeth upon the earth,       dra. Dit sal julle voedsel wees.
+wherein there is life, I have given       Maar aan al die diere van die aarde en
+every green herb for meat: and it         al die voëls van die hemel en al die
+was so.                                   kruipende diere op die aarde, waarin
+And God saw every thing that he           ’n lewende siel is, gee Ek al die
+had made, and, behold, it was very        groen plante as voedsel. En dit was so.
+good. And the evening and the morning     Toe sien God alles wat Hy gemaak het,
+were the sixth day.                       en — dit was baie goed. En dit was
+                                          aand en dit was môre, die sesde dag.
+
+GENESIS 2                                 GENESIS 2
