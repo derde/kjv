@@ -1,4 +1,6 @@
 default: bibl2.ps bibl.ps
+clean:
+	rm *.{aux,log,toc,dvi,ps}
 
 generated.tex: gentex.py
 	./gentex.py generated.tex

@@ -1,17 +1,20 @@
 % !TeX document-id = {7879a0e9-c3ab-473f-99fc-635c7bcf5210}
 % !TEX encoding = UTF-8 Unicode
 % !TEX TS-program = XeLaTeX
-\documentclass[10pt,oneside,a4paper]{memoir} 
+\documentclass[10pt,twoside,openany,a4paper]{book} 
+\usepackage[margin=0.8in]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage[english, afrikaans]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{paracol}
 \usepackage{lettrine}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\setulmarginsandblock{2cm}{2cm}{*}
-\setlrmarginsandblock{2cm}{2cm}{*}
+%\setulmarginsandblock{2cm}{2cm}{*}
+%\setlrmarginsandblock{2cm}{2cm}{*}
+%\checkandfixthelayout
 \setlength{\parindent}{0.1em}
 \setlength{\parskip}{0em}
-\checkandfixthelayout
-\usepackage{paracol}  
+\usepackage{fancyhdr}
+\pagestyle{fancy}
 %\usepackage{fontspec}  
 %\setmainfont[Ligatures=TeX]{Linux Libertine O}  
 %\usepackage{metalogo,hyperref}  
@@ -26,11 +29,9 @@
 % \tolerance is used to indicate when there is too much space even after breaking words.
 % If we want to avoid breaking words, and avoid having too long lines, we have to use a very high value for 
 % \pretoletance. An “infinite” tolerance is represented by the value 10000.
-\pretolerance=5000
+\pretolerance=8000
 \let\textquotedbl="
 \let\quotedblbase="
-%
-%
 %
 %% % due to a bug in memoir (as of 2015/8/24) [twoside] option will give a spurious space
 %% % this will be fixed as memoir gets updated
@@ -49,7 +50,7 @@
 %%  \setaftersecskip{0em}
 %%  \setsecheadstyle{\marginhead}
 \renewcommand{\verse}[1]{\textsuperscript{#1}}
-\abnormalparskip{1pt}
+%% \setlength{\abnormalparskip{1pt}}
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\bibldropcapschapter}[1]{\lettrine[lines=2, findent=3pt, nindent=0pt]{#1}}
 % Work around lettrine bug with "Fpar" definition from https://tex.stackexchange.com/questions/369868/using-lettrine-with-short-paragraphs :
@@ -58,6 +59,7 @@
 \hfuzz=2pt
 \setlength{\columnseprule}{0.4pt}
 \begin{document}
+%\tableofcontents
 \mainmatter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{generated}

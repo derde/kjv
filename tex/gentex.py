@@ -173,6 +173,16 @@ class bibleformatter:
         # Rewrite paragraph capitalisation
         text=re.sub(r"(^'n )?([A-Z]{2,})", self.afrikaans_titlecase, text, 1)
         text=re.sub(r"([A-Z]{2,})(\s*)", self.sub_format_smallcaps, text)
+        hypenateme = (
+            re.compile('([a-z])(honderd|duisend|miljoen)') , re.compile(r'(skrif)(geleerde)') )
+        hyphenwords=('skrif-geleerde', 'ge-reg-tig-heid', 'Goeder-tieren-heid',
+            'Egipte-naars', 'eers-ge-borenes', 'goeder-tieren-heid',
+            'ver-slaan','ver-plet-ter', 'lank-moedig-heid','lyd-saam-heid',
+            'on-der-tussen', )
+        for h in hypenateme:
+            text=h.sub(r'\1\\-\2',text)
+        for h in hyphenwords:
+            text=text.replace(h.replace('-',''),h.replace('-','\\-'))
         return text
 
     def parsebooks(self):
@@ -206,14 +216,15 @@ def sidebysidechapters():
     en=bibleformatter('../kjv.txt')
     for left,right in itertools.izip( en.parsebooks(), af.parsebooks() ):
         if left.has_key('book'):
-            yield r'\book{'+left['book']+' / ' + right['book']+'}\n'
+            yield r'\chapter{'+left['book']+' / ' + right['book']+'}\n'  # TeX chapter, which is a book of the Bible
         elif left.has_key('chapter'):
-            yield r'\selectlanguage{english}\n'+ \
-                r'\begin{paracol}{2}'+'\n'+ \
-                left['chapter']+r'\switchcolumn'+'\n'+ \
-                r'\selectlanguage{afrikaans}\n'+ \
-                right['chapter']+'\end{paracol}\n' + \
-                '%%%%%%%%\n';
+            yield (
+                # r'\selectlanguage{english}\n'+ \
+                r'\begin{paracol}{2}' '\n'
+                ) + left['chapter'] + ( r'\switchcolumn' '\n'
+                # r'\selectlanguage{dutch}\n'
+                ) + right['chapter'] + ( '\end{paracol}\n' 
+                '%%%%%%%%\n' ) ;
 
 outfd=sys.stdout
 if len(sys.argv)>1:
