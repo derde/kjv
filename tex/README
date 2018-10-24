@@ -1,5 +1,8 @@
 This is actually the TODO list:
 
+Compilation requirements:
+    sudo apt-get install texlive-xetex
+
 Source data requirements:
 
     Bible text by the verse
@@ -187,3 +190,29 @@ were the sixth day.                       en — dit was baie goed. En dit was
                                           aand en dit was môre, die sesde dag.
 
 GENESIS 2                                 GENESIS 2
+
+Fonts:
+
+I'm trying the "New Standard" font, because it looks slightly compact, but has
+proper serifs. Download it from
+    https://dl.static.1001fonts.net/niceid/n/e/new-standard.zip to your .fonts
+directory like this ..
+    
+    cd ~/.fonts
+    curl -O https://dl.static.1001fonts.net/niceid/n/e/new-standard.zip
+    unzip new-standard.zip
+    fc-cache .   # load into X
+
+
+BUGS:
+    Every chapter should have 3 lines at the bottom of the page.  Having a drop
+    capital dangling into the margin is not great.
+    
+    Every new book should have 15% of the page at the bottom or something that
+    looks good.
+
+    Italics in KJV required.
+
+    Table of contents
+
+    First and last verse references in page header

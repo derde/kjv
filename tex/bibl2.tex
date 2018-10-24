@@ -2,19 +2,30 @@
 % !TEX encoding = UTF-8 Unicode
 % !TEX TS-program = XeLaTeX
 \documentclass[10pt,twoside,openany,a4paper]{book} 
+% \usepackage{microtype} % Improves spacing
+\usepackage{fontspec,xunicode}
+\defaultfontfeatures{Scale=MatchLowercase}
+\setromanfont[Numbers=Uppercase]{New Standard}
+\setmonofont[Scale=0.90,Ligatures=NoCommon]{Courier New}
 \usepackage[margin=0.8in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{paracol}
 \usepackage{lettrine}
+\usepackage[bf,sf,center]{titlesec} % Required for modifying section titles -   bold, sans-serif, centered
+\usepackage{fancyhdr}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\setulmarginsandblock{2cm}{2cm}{*}
 %\setlrmarginsandblock{2cm}{2cm}{*}
 %\checkandfixthelayout
 \setlength{\parindent}{0.1em}
 \setlength{\parskip}{0em}
-\usepackage{fancyhdr}
 \pagestyle{fancy}
+\fancyhead[L]{\textsf{\rightmark}} % Top left header
+\fancyhead[R]{\textsf{\leftmark}} % Top right header
+\fancyhead[C]{\textbf{\textsf{\thepage}}} % Bottom center footer
+\renewcommand{\headrulewidth}{0.0pt}
+\renewcommand{\footrulewidth}{0.0pt}
 %\usepackage{fontspec}  
 %\setmainfont[Ligatures=TeX]{Linux Libertine O}  
 %\usepackage{metalogo,hyperref}  
@@ -49,7 +60,14 @@
 %%  \setsecindent{0em}
 %%  \setaftersecskip{0em}
 %%  \setsecheadstyle{\marginhead}
-\renewcommand{\verse}[1]{\textsuperscript{#1}}
+\renewcommand{\verse}[1]{\textsuperscript{\textbf{#1}}}
+\newcommand{\biblchapter}[1]{\textbf{\Huge #1}\addcontentsline{toc}{chapter}{#1}}
+\newcommand{\biblchapters}[2]{\vspace{2cm}%
+\begin{paracol}{2}%
+\textbf{\Huge #1}%
+\switchcolumn
+\textbf{\Huge #2}%
+\end{paracol}}
 %% \setlength{\abnormalparskip{1pt}}
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\bibldropcapschapter}[1]{\lettrine[lines=2, findent=3pt, nindent=0pt]{#1}}
@@ -57,7 +75,9 @@
 \def\biblsyntheticpar{\hfil\vadjust{\vskip\parskip}\break\indent}
 % Don't warn for slightly overfull hboxen
 \hfuzz=2pt
-\setlength{\columnseprule}{0.4pt}
+% All our vertical stuff is bad for now
+\vbadness=10001
+\setlength{\columnseprule}{0.3pt}
 \begin{document}
 %\tableofcontents
 \mainmatter

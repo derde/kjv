@@ -357,8 +357,21 @@ and from that you get all the verses that say "fruit" and "**righteousness**" in
 
 
 # Reference: how to get a text for comparison
-curl http://ftp.funet.fi/pub/doc/religion/christian/Bible/unix/bible.tar.gz > bible.tar.gz
-tar -Ozxf bible.tar.gz bible.raw.z | gzip -d > bible.txt
+
+    curl http://ftp.funet.fi/pub/doc/religion/christian/Bible/unix/bible.tar.gz > bible.tar.gz
+    tar -Ozxf bible.tar.gz bible.raw.z | gzip -d > bible.txt
+
+    # How to do the comparison (cut from the verse number, and ignore whitespace changes)
+    cut -f 2-231 -d : < kjv.txt > 1 ;
+    cut -f 2-231 -d : < bible.txt > 2 ;
+    diff -uw 1 2 | less
+
+    # How to do the comparison (cut from the verse number, and ignore whitespace changes)
+    # These two agree, except for the hypenation or lack thereof of "lovingkindness"
+    cut -f 2-231 -d : < kjv-bible-deb.cooked > 1 ;
+    cut -f 2-231 -d : < bible.txt > 2 ;
+    diff -uw 1 2 | less
+
 
 # kjv.py
 
@@ -372,3 +385,7 @@ Making a harmony of the gospels is a study of some subtlety, but if you happen t
     ./kjv.py -r harmony2.headings > harmony2.txt; unix2dos harmony2.txt
  
 
+Sources of text:
+    kjv.txt : not sure where I got this
+    bible.txt : from ftp.funet.fi
+    

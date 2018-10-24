@@ -123,13 +123,15 @@ class bibleformatter:
 
     def chapterheading(self,chapter, one_chapter=False):
         if one_chapter:
-            return self.verseheading('1')
-        return (
-            r'\bibldropcapschapter{'+chapter+'} '   '\n'
-        )
+            return self.setverseforheading() +self.verseheading('1') + '\n';
+        return self.verseheading('1') + r'\bibldropcapschapter{'+chapter+'} ' + '\n'
 
     def verseheading(self,verse):
-        return r'\verse{'+verse+'}';
+        return self.setverseforheading() +  r'\verse{'+verse+'}' 
+
+    def setverseforheading(self):
+        return r'\markboth{'+self.book+' '+self.chapter+':'+self.verse+'}' + \
+                      '{'+self.book+' '+self.chapter+':'+self.verse+'}'
 
     def isnewparagraph(self,book,chapter,verse,text):
         # Afrikaans text has capital words indicating new paragraphs
@@ -190,6 +192,10 @@ class bibleformatter:
         ochapter=''
         chaptertext=[]
         for book,chapter,verse,text in self.booktochapters():
+            self.book=book
+            self.chapter=chapter
+            self.verse=verse
+            self.text=text
             if book!=obook:
                 if obook:
                     yield { 'chapter': ''.join(chaptertext) }
@@ -216,7 +222,8 @@ def sidebysidechapters():
     en=bibleformatter('../kjv.txt')
     for left,right in itertools.izip( en.parsebooks(), af.parsebooks() ):
         if left.has_key('book'):
-            yield r'\chapter{'+left['book']+' / ' + right['book']+'}\n'  # TeX chapter, which is a book of the Bible
+            # yield r'\biblchapter{'+left['book']+' / ' + right['book']+'}\n'  # TeX chapter, which is a book of the Bible
+            yield r'\biblchapters{'+left['book'] + '}{' + right['book'] + '}\n' 
         elif left.has_key('chapter'):
             yield (
                 # r'\selectlanguage{english}\n'+ \

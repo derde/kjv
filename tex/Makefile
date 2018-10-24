@@ -7,7 +7,7 @@ generated.tex: gentex.py
 bibl2.ps: bibl2.dvi
 	dvips bibl2.dvi
 bibl2.dvi: bibl2.tex generated.tex
-	latex bibl2.tex < /dev/null
+	xelatex bibl2.tex < /dev/null
 
 bibl.ps: bibl.dvi
 	dvips bibl.dvi
