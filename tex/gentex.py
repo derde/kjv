@@ -113,6 +113,22 @@ REV      : Revelation      :  Openbaring'''
 class bibleformatter:
     paragraph_wl_re=re.compile("^('n )?[A-Z]{2,}")
     paragraph_bl_re=re.compile("^HERE ")
+
+    def __init__(self,file, is_afrikaans=False):
+        self.state={
+            'book': '',
+            'chapter': '',
+            'chapter': '', }
+        self.paragraphdivisions=paragraphdivisions('1526.Pericopes.csv')
+        if is_afrikaans:
+            self.reformat=self.reformat_afrikaans
+            self.markheading=r'\markleft';
+        else:
+            self.reformat=self.reformat_english
+            self.markheading=r'\markright';
+        self.fd=open(file,'r')
+
+
     def booktochapters(self):
         lineformat_re=re.compile('(.*?) (\d+):(\d+) (.*)')
         for line in self.fd:
@@ -127,11 +143,15 @@ class bibleformatter:
         return self.verseheading('1') + r'\bibldropcapschapter{'+chapter+'} ' + '\n'
 
     def verseheading(self,verse):
-        return self.setverseforheading() +  r'\verse{'+verse+'}' 
+        r= self.setverseforheading()
+        if verse!='1': r+=  r'\verse{'+verse+'}' 
+        return r
 
     def setverseforheading(self):
-        return r'\markboth{'+self.book+' '+self.chapter+':'+self.verse+'}' + \
-                      '{'+self.book+' '+self.chapter+':'+self.verse+'}'
+        ref = '%(book)s %(chapter)s:%(verse)s' % self.state
+        # return self.markheading+'{'+ref+'}' ;
+        return r'\markright{%s}' % (ref)
+        # return r'\markboth{%s}{%s}' % (ref,ref)
 
     def isnewparagraph(self,book,chapter,verse,text):
         # Afrikaans text has capital words indicating new paragraphs
@@ -140,15 +160,6 @@ class bibleformatter:
         #isnew = self.paragraph_wl_re.search(text) and not self.paragraph_bl_re.search(text)
         isnew = self.paragraphdivisions.isnewparagraph(book+' '+chapter+':'+verse)
         return isnew
-
-    def __init__(self,file, is_afrikaans=False):
-        self.paragraphdivisions=paragraphdivisions('1526.Pericopes.csv')
-        if is_afrikaans:
-            self.reformat=self.reformat_afrikaans
-        else:
-            self.reformat=self.reformat_english
-        self.fd=open(file,'r')
-
 
     def sub_format_smallcaps(self,m):
         if m.span(1)[0]==0:
@@ -180,7 +191,7 @@ class bibleformatter:
         hyphenwords=('skrif-geleerde', 'ge-reg-tig-heid', 'Goeder-tieren-heid',
             'Egipte-naars', 'eers-ge-borenes', 'goeder-tieren-heid',
             'ver-slaan','ver-plet-ter', 'lank-moedig-heid','lyd-saam-heid',
-            'on-der-tussen', )
+            'on-der-tussen', 'oop-ge-sny')
         for h in hypenateme:
             text=h.sub(r'\1\\-\2',text)
         for h in hyphenwords:
@@ -192,10 +203,10 @@ class bibleformatter:
         ochapter=''
         chaptertext=[]
         for book,chapter,verse,text in self.booktochapters():
-            self.book=book
-            self.chapter=chapter
-            self.verse=verse
-            self.text=text
+            self.state['book']=book
+            self.state['chapter']=chapter
+            self.state['verse']=verse
+            self.state['text']=text
             if book!=obook:
                 if obook:
                     yield { 'chapter': ''.join(chaptertext) }

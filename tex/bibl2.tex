@@ -19,8 +19,9 @@
 %\setlrmarginsandblock{2cm}{2cm}{*}
 %\checkandfixthelayout
 \setlength{\parindent}{0.1em}
-\setlength{\parskip}{0em}
+\setlength{\parskip}{0cm plus4mm minus1pt}
 \pagestyle{fancy}
+\fancyhf{}
 \fancyhead[L]{\textsf{\rightmark}} % Top left header
 \fancyhead[R]{\textsf{\leftmark}} % Top right header
 \fancyhead[C]{\textbf{\textsf{\thepage}}} % Bottom center footer
@@ -61,16 +62,16 @@
 %%  \setaftersecskip{0em}
 %%  \setsecheadstyle{\marginhead}
 \renewcommand{\verse}[1]{\textsuperscript{\textbf{#1}}}
-\newcommand{\biblchapter}[1]{\textbf{\Huge #1}\addcontentsline{toc}{chapter}{#1}}
+\newcommand{\biblchapter}[1]{\textbf{\Huge #1}\addcontentsline{toc}{chapter}{#1}\nopagebreak}
 \newcommand{\biblchapters}[2]{\vspace{2cm}%
 \begin{paracol}{2}%
 \textbf{\Huge #1}%
 \switchcolumn
 \textbf{\Huge #2}%
-\end{paracol}}
+\end{paracol}\nopagebreak}
 %% \setlength{\abnormalparskip{1pt}}
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\bibldropcapschapter}[1]{\lettrine[lines=2, findent=3pt, nindent=0pt]{#1}}
+\newcommand{\bibldropcapschapter}[1]{\lettrine[lines=2, findent=3pt, nindent=0pt, loversize=0.4]{#1}}
 % Work around lettrine bug with "Fpar" definition from https://tex.stackexchange.com/questions/369868/using-lettrine-with-short-paragraphs :
 \def\biblsyntheticpar{\hfil\vadjust{\vskip\parskip}\break\indent}
 % Don't warn for slightly overfull hboxen
@@ -83,6 +84,5 @@
 \mainmatter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{generated}
-\bigskip\ldots
+%%\bigskip%%\ldots
 \end{document}
-
