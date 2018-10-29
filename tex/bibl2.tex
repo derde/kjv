@@ -1,7 +1,9 @@
 % !TeX document-id = {7879a0e9-c3ab-473f-99fc-635c7bcf5210}
 % !TEX encoding = UTF-8 Unicode
 % !TEX TS-program = XeLaTeX
-\documentclass[10pt,twoside,openany,a4paper]{book} 
+\documentclass[10pt,twoside,openany,a4paper]{book}
+% openany says chapters start on either page
+% twoside says it's a real book
 % \usepackage{microtype} % Improves spacing
 \usepackage{fontspec}
 % \usepackage{xunicode}
@@ -82,7 +84,7 @@
 \end{paracol}\nopagebreak}
 %% \setlength{\abnormalparskip{1pt}}
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\bibldropcapschapter}[1]{\needspace{3\baselineskip}\lettrine[lines=2, lhang=0.05, findent=3pt, nindent=0pt, loversize=0.4]{\textbf{#1}}{}}
+\newcommand{\bibldropcapschapter}[1]{\needspace{3\baselineskip}\lettrine[lines=2, lhang=0.05, findent=3pt, nindent=3pt, loversize=0.4]{\textbf{#1}}{}}
 % Work around lettrine bug with "Fpar" definition from https://tex.stackexchange.com/questions/369868/using-lettrine-with-short-paragraphs :
 \def\biblsyntheticpar{\hfil\vadjust{\vskip\parskip}\break\indent}
 % Don't warn for slightly overfull hboxen

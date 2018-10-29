@@ -219,10 +219,9 @@ BUGS:
 
     Afrikaans version capitalisation correction: GeseËNd
 
-    1 Peter 3:22 spacing Afrikaans extra blank line before drop caps
+    1 Peter 3:22 spacing Afrikaans extra blank line before drop caps We need
+    better paragraph breaks.  Synchronisation of paragraphs should be
+    preferred, but not forced. - FIXED: use needspace package
 
-    We need better paragraph breaks.  Synchronisation of paragraphs should be
-    preferred, but not forced.
-
-    Chosen font is not used
+    Chosen font is not used - FIXED: don't use T1 fontenc package
 
