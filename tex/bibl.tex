@@ -3,7 +3,7 @@
 % !TEX TS-program = XeLaTeX
 \documentclass[10pt,oneside,a4paper]{memoir} 
 \usepackage[utf8]{inputenc}
-\usepackage{palatino}
+\usepackage{fontspec}
 \usepackage{lettrine}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setulmarginsandblock{2cm}{2cm}{*}
@@ -73,6 +73,7 @@
 \def\biblsyntheticpar{\hfil\vadjust{\vskip\parskip}\break\indent}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+\setmainfont[Numbers=Uppercase]{Arial}
 \mainmatter
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -138,8 +138,8 @@ class bibleformatter:
             yield book,chapter,verse,text
 
     def chapterheading(self,chapter, one_chapter=False):
-        if one_chapter:
-            return self.setverseforheading() +self.verseheading('1') + '\n';
+        if chapter=='1':
+            return self.verseheading('1') + '\n';
         return self.verseheading('1') + r'\bibldropcapschapter{'+chapter+'} ' + '\n'
 
     def verseheading(self,verse):
