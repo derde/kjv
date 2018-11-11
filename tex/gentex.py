@@ -137,8 +137,10 @@ class bibleformatter:
             text=text.replace('’',"'")
             yield book,chapter,verse,text
 
-    def chapterheading(self,chapter, one_chapter=False):
+    def chapternumber(self,chapter, one_chapter=False):
+        # Generate  chapter numbers for each book
         if chapter=='1':
+            return '';
             return self.verseheading('1') + '\n';
         return self.verseheading('1') + r'\bibldropcapschapter{'+chapter+'} ' + '\n'
 
@@ -150,7 +152,7 @@ class bibleformatter:
     def setverseforheading(self):
         ref = '%(book)s %(chapter)s:%(verse)s' % self.state
         # return self.markheading+'{'+ref+'}' ;
-        return r'\markright{%s}' % (ref)
+        return '' # r'\markright{%s}' % (ref)
         # return r'\markboth{%s}{%s}' % (ref,ref)
 
     def isnewparagraph(self,book,chapter,verse,text):
@@ -158,7 +160,7 @@ class bibleformatter:
         if book.startswith('Psa'):
             return True;
         #isnew = self.paragraph_wl_re.search(text) and not self.paragraph_bl_re.search(text)
-        isnew = self.paragraphdivisions.isnewparagraph(book+' '+chapter+':'+verse)
+        isnew = verse!='2' and verse!='3' and self.paragraphdivisions.isnewparagraph(book+' '+chapter+':'+verse)
         return isnew
 
     def sub_format_smallcaps(self,m):
@@ -180,11 +182,12 @@ class bibleformatter:
         word=m.group(2)
         if word=='HERE':
             return word
-        return indefinitearticle+word.title()
+        return indefinitearticle+word[0]+word[1:].lower()  # .title() does the wrong thing for DRIE-EN-TWINTIG
 
     def reformat_afrikaans(self,text):
         # Rewrite paragraph capitalisation
-        text=re.sub(r"(^'n )?([A-Z]{2,})", self.afrikaans_titlecase, text, 1)
+        text=re.sub(r"(^'n )?([A-Z-]{2,})", self.afrikaans_titlecase, text, 1) # DRIE-EN-TWINTIG VYF-EN-TWINTIG EEN-EN-TWINTIG
+
         text=re.sub(r"([A-Z]{2,})(\s*)", self.sub_format_smallcaps, text)
         hypenateme = (
             re.compile('([a-z])(honderd|duisend|miljoen)') , re.compile(r'(skrif)(geleerde)') )
@@ -209,13 +212,13 @@ class bibleformatter:
             self.state['text']=text
             if book!=obook:
                 if obook:
-                    yield { 'chapter': ''.join(chaptertext) }
+                    yield { 'chaptertext': ''.join(chaptertext), 'book': obook, 'chapter': ochapter }
                     chaptertext=[]
-                yield { 'book': book }
+                yield { 'newbook': True, 'book': book }
             if chapter!=ochapter:
-                yield { 'chapter': ''.join(chaptertext) }
+                yield { 'chaptertext': ''.join(chaptertext), 'book':obook, 'chapter': ochapter }
                 chaptertext=[]
-                chaptertext.append(self.chapterheading(chapter))
+                chaptertext.append(self.chapternumber(chapter))
             if verse!='1':
                 if self.isnewparagraph(book,chapter,verse,text):
                     if verse=='2':
@@ -226,23 +229,26 @@ class bibleformatter:
             chaptertext.append(self.reformat(text)+'\n');
             obook = book
             ochapter = chapter
-        yield { 'chapter': ''.join(chaptertext) }
+        yield { 'chaptertext': ''.join(chaptertext), 'book':book, 'chapter': chapter }
 
 def sidebysidechapters():
     af=bibleformatter('../af1953.txt',is_afrikaans=True)
     en=bibleformatter('../kjv.txt')
     for left,right in itertools.izip( en.parsebooks(), af.parsebooks() ):
-        if left.has_key('book'):
+        if left.has_key('newbook'):
             # yield r'\biblchapter{'+left['book']+' / ' + right['book']+'}\n'  # TeX chapter, which is a book of the Bible
             yield r'\biblchapters{'+left['book'] + '}{' + right['book'] + '}\n' 
-        elif left.has_key('chapter'):
-            yield (
-                # r'\selectlanguage{english}\n'+ \
-                r'\begin{paracol}{2}' '\n'
-                ) + left['chapter'] + ( r'\switchcolumn' '\n'
-                # r'\selectlanguage{dutch}\n'
-                ) + right['chapter'] + ( '\end{paracol}\n' 
-                '%%%%%%%%\n' ) ;
+        elif left.has_key('chaptertext'):
+            yield \
+                r'\begin{paracol}{2}' \
+                + r'\biblpagetitles' + ('{%(book)s %(chapter)s}' % left) \
+                                   + ('{%(book)s %(chapter)s}' % right) \
+                + left['chaptertext'] \
+                + r'\switchcolumn' + '\n' \
+                + right['chaptertext'] \
+                + '\end{paracol}\n' \
+                + '%%%%%%%%\n' ;
+                # r'\selectlanguage{dutch}\n' 
 
 outfd=sys.stdout
 if len(sys.argv)>1:
