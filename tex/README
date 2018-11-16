@@ -16,6 +16,7 @@ Source data requirements:
     Appendix: Short difficult word list
     List of Which books have but one chapter (no chapter title)
     Afrikaans hypenation rules
+    Paragraph break information for Afrikaans psalm numbering
 
 Typesetting requirements:
 
@@ -230,3 +231,6 @@ BUGS:
     New chapters don't always align in Afrikaans and English
 
     Page headers seem to be the very last thing on the next page, or even worse, the first thing on the next page
+
+    1953: Hosea 12 has borrowed a verse from Hosea 11
+    1953: Psalm titles take up their own verse ... sometimes

@@ -90,6 +90,7 @@ REV      : Revelation      :  Openbaring'''
         self.headings=line1.strip('\n').split('\t')
         verse_range_i = self.headings.index('Verse Range')
         for line in fd:
+            if line.startswith("#"): continue
             bits=line.strip('\n').split('\t')
             self.addparagraph(bits[verse_range_i])
 
@@ -222,7 +223,9 @@ class bibleformatter:
                     if verse=='2':
                         chaptertext.append(r'\biblsyntheticpar'+'\n')  # local def
                     else:
-                        chaptertext.append(r'\par'+'\n');
+                        yield { 'chaptertext': ''.join(chaptertext), 'book':book, 'chapter': chapter }
+                        chaptertext=[];
+                        # chaptertext.append(r'\par'+'\n');
                 chaptertext.append(self.verseheading(verse))
             chaptertext.append(self.reformat(text)+'\n');
             obook = book
@@ -232,22 +235,25 @@ class bibleformatter:
 def sidebysidechapters():
     af=bibleformatter('../af1953.txt',is_afrikaans=True)
     en=bibleformatter('../kjv.txt')
+    ochapter=''
     for left,right in itertools.izip( en.parsebooks(), af.parsebooks() ):
         if left.has_key('newbook'):
             # yield r'\biblchapter{'+left['book']+' / ' + right['book']+'}\n'  # TeX chapter, which is a book of the Bible
             yield r'\biblnewbook{'+left['book'] + '}{' + right['book'] + '}%\n' 
         elif left.has_key('chaptertext'):
-            yield ''\
-                + r'\biblpagetitles' + ('{%(book)s %(chapter)s}' % left) \
-                                   + ('{%(book)s %(chapter)s}' % right) + '%\n' \
-                + r'\begin{paracol}{2}' \
+            o = '';
+            chapter = '{%(book)s %(chapter)s}' % left
+            if ochapter and chapter!=ochapter:
+                o += r'\biblendchapter%' + '\n'
+            if chapter!=ochapter:
+                o += r'\biblpagetitles' + ('{%(book)s %(chapter)s}' % left) \
+                                       + ('{%(book)s %(chapter)s}' % right) + '%\n'
+            o+=   r'\begin{paracol}{2}' \
                 + left['chaptertext'] \
                 + r'\switchcolumn' + '\n' \
                 + right['chaptertext'] \
-                + '\end{paracol}%\n' \
-                + r'\biblendchapter%' + '\n' \
-                + '%%%%%%%%\n' ;
-                # r'\selectlanguage{dutch}\n' 
+                + '\end{paracol}%\n' ; # r'\selectlanguage{dutch}\n' 
+            yield o
 
 outfd=sys.stdout
 if len(sys.argv)>1:
