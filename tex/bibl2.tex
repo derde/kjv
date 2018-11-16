@@ -7,7 +7,9 @@
 % \usepackage{microtype} % Improves spacing
 \usepackage{fontspec}
 % \usepackage{xunicode}
-\usepackage[margin=0.8in]{geometry}
+% \usepackage[margin=0.8in]{geometry}
+%\usepackage[left=1.5cm,top=2.0cm,right=1.5cm,bottom=1.5cm,bindingoffset=0.5cm]{geometry}
+\usepackage[left=1.5cm,top=2.0cm,right=1.5cm,bottom=1.5cm,bindingoffset=1.0cm]{geometry}
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}      % Don't do this - it causes pdf fonts not to happen
 \usepackage{paracol}
@@ -22,6 +24,7 @@
 %\setulmarginsandblock{2cm}{2cm}{*}
 %\setlrmarginsandblock{2cm}{2cm}{*}
 %\checkandfixthelayout
+%%%%%%%%%%%%%
 \setlength{\parindent}{0.1em}
 \setlength{\parskip}{0cm plus4mm minus1pt}
 \pagestyle{fancy}
@@ -34,11 +37,15 @@
 %
 \defaultfontfeatures{Scale=MatchLowercase}
 %\setromanfont[Numbers=Uppercase]{New Standard}
-%\setromanfont[Numbers=Uppercase]{Arial}
+%\setromanfont[Numbers=Uppercase]{DejaVu Sans Condensed}
 \fontspec{Arial}
-\setmainfont[Numbers=Uppercase]{Georgia}
-\setmonofont[Scale=0.90,Ligatures=NoCommon]{Courier New}
-\fontsize{10}{1.2}\selectfont
+\setmainfont[Numbers=Uppercase]{Times New Roman} % Times New Roman is pretty good 996 pages
+%\setmainfont[Numbers=Uppercase]{New Standard} % 1046 pages
+% \setmainfont[Numbers=Uppercase]{Latin Modern Roman}
+% \setmonofont[Scale=0.90,Ligatures=NoCommon]{Courier New}
+\newfontfamily\mysuperscriptfont[Scale=0.55]{DejaVu Sans Condensed}
+\newfontfamily\mybooktitlefont[Scale=1.0]{DejaVu Sans Condensed}
+\newfontfamily\mychapterfont[Scale=1.0]{DejaVu Sans Condensed}
 %\usepackage{fontspec}  
 %\setmainfont[Ligatures=TeX]{Linux Libertine O}  
 %\usepackage{metalogo,hyperref}  
@@ -73,20 +80,25 @@
 %%  \setsecindent{0em}
 %%  \setaftersecskip{0em}
 %%  \setsecheadstyle{\marginhead}
-\renewcommand{\verse}[1]{\textsuperscript{\textbf{#1}}}
+\renewcommand{\verse}[1]{\raisebox{2pt}[0pt]{\mysuperscriptfont\textbf{#1}\hspace{0.1em}}}%3 points up, count height as 0 points, kern at end
 \newcommand{\biblpagetitles}[2]{\markboth{#1}{#2}}
-\newcommand{\biblchapter}[1]{\textbf{\Huge #1}\addcontentsline{toc}{chapter}{#1}\nopagebreak}
-% \newcommand{\biblchapters}[2]{\vspace{2cm}%
-\newcommand{\biblchapters}[2]{\vspace{2cm}%
-\needspace{5\baselineskip}
-\begin{paracol}{2}%
-\textbf{\Huge #1}%
-\switchcolumn
-\textbf{\Huge #2}%
-\end{paracol}\nopagebreak}
+\newcommand{\biblnewbook}[2]{
+\vspace{2cm}
+\addcontentsline{toc1}{books}{#1}%
+\addcontentsline{toc2}{books}{#2}}%
+\newcommand{\biblbookheading}[1]{\needspace{7\baselineskip}\begin{center}\textbf{\mybooktitlefont\Huge #1}\end{center}\par\vspace{\baselineskip}}
+\newcommand{\biblendchapter}{\vfill}
+%\newcommand{\biblchapter}[2]{\vspace{2cm}\needspace{3\baselineskip}}
+%% %New book in separate paracol
+%% \newcommand{\biblnewbook}[2]{\vspace{2cm}%
+%% \begin{paracol}{2}%
+%% \textbf{\Huge #1}%
+%% \switchcolumn%
+%% \textbf{\Huge #2}%
+%% \end{paracol}\nopagebreak}%
 %% \setlength{\abnormalparskip{1pt}}
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\bibldropcapschapter}[1]{\needspace{3\baselineskip}\lettrine[lines=2, lraise=0.1, lhang=0.05, findent=3pt, nindent=3pt, loversize=0.1]{\textbf{#1}}{}}
+\newcommand{\bibldropcapschapter}[1]{\needspace{3\baselineskip}\lettrine[lines=2, lraise=0.1, lhang=0.05, findent=3pt, nindent=3pt, loversize=0.1]{\textbf{\mychapterfont #1}}{}}
 % Work around lettrine bug with "Fpar" definition from https://tex.stackexchange.com/questions/369868/using-lettrine-with-short-paragraphs :
 \def\biblsyntheticpar{\hfil\vadjust{\vskip\parskip}\break\indent}
 % Don't warn for slightly overfull hboxen
@@ -101,6 +113,7 @@
 \begin{document}
 %\tableofcontents
 \mainmatter
+\fontsize{10}{10}\selectfont
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{generated}
 %%\bigskip%%\ldots

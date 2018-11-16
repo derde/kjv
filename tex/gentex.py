@@ -137,10 +137,10 @@ class bibleformatter:
             text=text.replace('’',"'")
             yield book,chapter,verse,text
 
-    def chapternumber(self,chapter, one_chapter=False):
+    def chapternumber(self,book,chapter, one_chapter=False):
         # Generate  chapter numbers for each book
         if chapter=='1':
-            return '';
+            return r'\biblbookheading{'+book+'}%\n';
             return self.verseheading('1') + '\n';
         return self.verseheading('1') + r'\bibldropcapschapter{'+chapter+'} ' + '\n'
 
@@ -157,8 +157,8 @@ class bibleformatter:
 
     def isnewparagraph(self,book,chapter,verse,text):
         # Afrikaans text has capital words indicating new paragraphs
-        if book.startswith('Psa'):
-            return True;
+        #if book.startswith('Psa'):
+        #    return True;
         #isnew = self.paragraph_wl_re.search(text) and not self.paragraph_bl_re.search(text)
         isnew = verse!='2' and verse!='3' and self.paragraphdivisions.isnewparagraph(book+' '+chapter+':'+verse)
         return isnew
@@ -210,15 +210,13 @@ class bibleformatter:
             self.state['chapter']=chapter
             self.state['verse']=verse
             self.state['text']=text
-            if book!=obook:
-                if obook:
-                    yield { 'chaptertext': ''.join(chaptertext), 'book': obook, 'chapter': ochapter }
+            if ( chapter!=ochapter or book!=obook ):
+                if ochapter:
+                    yield { 'chaptertext': ''.join(chaptertext), 'book':obook, 'chapter': ochapter }
                     chaptertext=[]
-                yield { 'newbook': True, 'book': book }
-            if chapter!=ochapter:
-                yield { 'chaptertext': ''.join(chaptertext), 'book':obook, 'chapter': ochapter }
-                chaptertext=[]
-                chaptertext.append(self.chapternumber(chapter))
+                if book!=obook:
+                    yield { 'newbook': True, 'book': book }
+                chaptertext.append(self.chapternumber(book,chapter))
             if verse!='1':
                 if self.isnewparagraph(book,chapter,verse,text):
                     if verse=='2':
@@ -237,16 +235,17 @@ def sidebysidechapters():
     for left,right in itertools.izip( en.parsebooks(), af.parsebooks() ):
         if left.has_key('newbook'):
             # yield r'\biblchapter{'+left['book']+' / ' + right['book']+'}\n'  # TeX chapter, which is a book of the Bible
-            yield r'\biblchapters{'+left['book'] + '}{' + right['book'] + '}\n' 
+            yield r'\biblnewbook{'+left['book'] + '}{' + right['book'] + '}%\n' 
         elif left.has_key('chaptertext'):
-            yield \
-                r'\begin{paracol}{2}' \
+            yield ''\
                 + r'\biblpagetitles' + ('{%(book)s %(chapter)s}' % left) \
-                                   + ('{%(book)s %(chapter)s}' % right) \
+                                   + ('{%(book)s %(chapter)s}' % right) + '%\n' \
+                + r'\begin{paracol}{2}' \
                 + left['chaptertext'] \
                 + r'\switchcolumn' + '\n' \
                 + right['chaptertext'] \
-                + '\end{paracol}\n' \
+                + '\end{paracol}%\n' \
+                + r'\biblendchapter%' + '\n' \
                 + '%%%%%%%%\n' ;
                 # r'\selectlanguage{dutch}\n' 
 
@@ -254,5 +253,5 @@ outfd=sys.stdout
 if len(sys.argv)>1:
     outfd=open(sys.argv[1],'w')
 for splurge in sidebysidechapters():
-    outfd.write( splurge + '\n')
+    outfd.write( splurge )
 

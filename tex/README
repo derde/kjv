@@ -206,7 +206,11 @@ directory like this ..
 
 BUGS:
     Every chapter should have 3 lines at the bottom of the page.  Having a drop
-    capital dangling into the margin is not great.
+    capital dangling into the margin is not great.  1 Peter 3:22 spacing
+    Afrikaans extra blank line before drop caps We need better paragraph
+    breaks.  Synchronisation of paragraphs should be preferred, but not forced. -
+    FIXED: use needspace package
+
     
     Every new book should have 15% of the page at the bottom or something that
     looks good.
@@ -215,13 +219,14 @@ BUGS:
 
     Table of contents
 
-    First and last verse references in page header
+    First and last verse references in page header WORKAROUND ... used chapter title only
+
+    Check that page headers make sense: we might need left/right to be stored in a variable and extract part of that 
 
     Afrikaans version capitalisation correction: GeseËNd
 
-    1 Peter 3:22 spacing Afrikaans extra blank line before drop caps We need
-    better paragraph breaks.  Synchronisation of paragraphs should be
-    preferred, but not forced. - FIXED: use needspace package
-
     Chosen font is not used - FIXED: don't use T1 fontenc package
 
+    New chapters don't always align in Afrikaans and English
+
+    Page headers seem to be the very last thing on the next page, or even worse, the first thing on the next page
