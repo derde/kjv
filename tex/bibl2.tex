@@ -10,13 +10,16 @@
 % \usepackage[margin=0.8in]{geometry}
 %\usepackage[left=1.5cm,top=2.0cm,right=1.5cm,bottom=1.5cm,bindingoffset=0.5cm]{geometry}
 \usepackage[left=1.5cm,top=2.0cm,right=1.5cm,bottom=1.5cm,bindingoffset=1.0cm]{geometry}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc} % XeLaTeX is utf-8 or nuts
 %\usepackage[T1]{fontenc}      % Don't do this - it causes pdf fonts not to happen
 \usepackage{paracol}
 \usepackage{lettrine}
 \usepackage[bf,sf,center]{titlesec} % Required for modifying section titles -   bold, sans-serif, centered
 \usepackage{fancyhdr}
 \usepackage{needspace}
+\usepackage[afrikaans,english]{babel}
+%This complains about initex being required ... 
+%\begin{hyphenrules}{afrikaans}\include{hyph-af}\end{hyphenrules}
 %\usepackage{etoolbox}
 %\usepackage{xltxtra}
 %\usepackage{setspace}
@@ -32,15 +35,24 @@
 \fancyhead[L]{\textsf{\leftmark}} % Top left header
 \fancyhead[R]{\textsf{\rightmark}} % Top right header
 \fancyhead[C]{\textbf{\textsf{\thepage}}} % Bottom center footer
-\renewcommand{\headrulewidth}{0.1pt}
+\renewcommand{\headrulewidth}{0.0pt} % lines just amplify the skewness of skewly printed pages 
 \renewcommand{\footrulewidth}{0.0pt}
 %
-\defaultfontfeatures{Scale=MatchLowercase}
+%\defaultfontfeatures{Scale=MatchLowercase}
+\defaultfontfeatures{}
 %\setromanfont[Numbers=Uppercase]{New Standard}
 %\setromanfont[Numbers=Uppercase]{DejaVu Sans Condensed}
-\fontspec{Arial}
-\setmainfont[Numbers=Uppercase]{Times New Roman} % Times New Roman is pretty good 996 pages
+\fontspec{Times New Roman}              % (TimesNewRoman0)
+% \fontspec[Scale=0.8]{Times New Roman}   % (TimesNewRoman1)
+% map TimesNewRoman(0)/bx/sc (bold smallcaps) to Junicode(1)/m/sc (normal smallcaps of fake bold)
+% \DeclareFontShape{EU1}{TimesNewRoman(0)}{m}{sc}{<->ssub * TimesNewRoman(1)/m/sc}{}
+
+%\setmainfont[Numbers=Uppercase,Ligatures=TeX]{Times New Roman} % Times New Roman is pretty good 996 pages
+%\setmainfont[Numbers=Uppercase,Ligatures=NoCommon]{Times New Roman} % Times New Roman is pretty good 996 pages
+% \setmainfont[Numbers=Uppercase,Ligatures=TeX]{Latin Modern Roman}% Ligatures maybe?
+
 %\setmainfont[Numbers=Uppercase]{New Standard} % 1046 pages
+\setmainfont[Numbers=Uppercase]{Times New Roman} % 1046 pages
 % \setmainfont[Numbers=Uppercase]{Latin Modern Roman}
 % \setmonofont[Scale=0.90,Ligatures=NoCommon]{Courier New}
 \newfontfamily\mysuperscriptfont[Scale=0.55]{DejaVu Sans Condensed}
@@ -82,11 +94,14 @@
 %%  \setsecheadstyle{\marginhead}
 \renewcommand{\verse}[1]{\raisebox{2pt}[0pt]{\mysuperscriptfont\textbf{#1}\hspace{0.1em}}}%3 points up, count height as 0 points, kern at end
 \newcommand{\biblpagetitles}[2]{\markboth{#1}{#2}}
-\newcommand{\biblnewbook}[2]{
-\vspace{2cm}
+\newcommand{\biblnewbook}[2]{%
+\vspace{2cm}%
 \addcontentsline{toc1}{books}{#1}%
 \addcontentsline{toc2}{books}{#2}}%
 \newcommand{\biblbookheading}[1]{\needspace{7\baselineskip}\begin{center}\textbf{\mybooktitlefont\Huge #1}\end{center}\par\vspace{\baselineskip}}
+\newcommand{\biblleftcolumn}[1]{\selectlanguage{#1}\widowpenalty=0\clubpenalty=0} % just make widows, because alignment is more important
+\newcommand{\biblrightcolumn}[1]{\switchcolumn\selectlanguage{#1}\widowpenalty=0\clubpenalty=0}
+\newcommand{\bibldonecolumns}{}
 \newcommand{\biblendchapter}{\vfill}
 %\newcommand{\biblchapter}[2]{\vspace{2cm}\needspace{3\baselineskip}}
 %% %New book in separate paracol
@@ -98,7 +113,7 @@
 %% \end{paracol}\nopagebreak}%
 %% \setlength{\abnormalparskip{1pt}}
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\bibldropcapschapter}[1]{\needspace{3\baselineskip}\lettrine[lines=2, lraise=0.1, lhang=0.05, findent=3pt, nindent=3pt, loversize=0.1]{\textbf{\mychapterfont #1}}{}}
+\newcommand{\bibldropcapschapter}[1]{\needspace{3\baselineskip}\lettrine[lines=2, lraise=0.1, lhang=0.05, findent=3pt, nindent=0pt, loversize=0.0]{\textbf{\mychapterfont #1}}{}}
 % Work around lettrine bug with "Fpar" definition from https://tex.stackexchange.com/questions/369868/using-lettrine-with-short-paragraphs :
 \def\biblsyntheticpar{\hfil\vadjust{\vskip\parskip}\break\indent}
 % Don't warn for slightly overfull hboxen
@@ -106,10 +121,11 @@
 % All our vertical stuff is bad for now
 \vbadness=10001
 % Try to avoid stranded chapter header at the bottom of the page (this doesn't work)
-\widowpenalty=1000
-\clubpenalty=1000
+\widowpenalty=0
+\clubpenalty=0
 % Pretty separater
 \setlength{\columnseprule}{0.3pt}
+\setlength{\headsep}{3pt}
 \begin{document}
 %\tableofcontents
 \mainmatter

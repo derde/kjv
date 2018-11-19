@@ -140,10 +140,12 @@ class bibleformatter:
 
     def chapternumber(self,book,chapter, one_chapter=False):
         # Generate  chapter numbers for each book
+        o='';
         if chapter=='1':
-            return r'\biblbookheading{'+book+'}%\n';
-            return self.verseheading('1') + '\n';
-        return self.verseheading('1') + r'\bibldropcapschapter{'+chapter+'} ' + '\n'
+            o=r'\biblbookheading{'+book+'}%\n';
+            if not book.startswith('Ps'):
+                return o+self.verseheading('1') + '\n';
+        return o+self.verseheading('1') + r'\bibldropcapschapter{'+chapter+'}%' + '\n'
 
     def verseheading(self,verse):
         r= self.setverseforheading()
@@ -167,9 +169,11 @@ class bibleformatter:
     def sub_format_smallcaps(self,m):
         if m.span(1)[0]==0:
             return m.group(1)+m.group(2)
-        smallcapsd= r'\textsc{'+m.group(1).title()+'}'
+        word=m.group(1)
+        smallcapsd=word[0]+r'{\footnotesize '+word[1:]+'}'
+        # smallcapsd= r'\textsc{'+m.group(1).title()+'}'
         whitespace=m.group(2)
-        if not whitespace: whitespace='%\n'
+        # if not whitespace: whitespace='%\n'
         return smallcapsd+whitespace
 
     def reformat_english(self,text):
@@ -187,21 +191,27 @@ class bibleformatter:
 
     def reformat_afrikaans(self,text):
         # Rewrite paragraph capitalisation
-        text=re.sub(r"(^'n )?([A-Z-]{2,})", self.afrikaans_titlecase, text, 1) # DRIE-EN-TWINTIG VYF-EN-TWINTIG EEN-EN-TWINTIG
+        utext=text.decode('utf-8')
+        utext=re.sub(r"(^'n )?([A-Z-]{2,})", self.afrikaans_titlecase, utext, 1) # DRIE-EN-TWINTIG VYF-EN-TWINTIG EEN-EN-TWINTIG
 
-        text=re.sub(r"([A-Z]{2,})(\s*)", self.sub_format_smallcaps, text)
-        hypenateme = (
-            re.compile('([a-z])(honderd|duisend|miljoen)') , re.compile(r'(skrif)(geleerde)') )
-        hyphenwords=('skrif-geleerde', 'ge-reg-tig-heid', 'Goeder-tieren-heid',
-            'Egipte-naars', 'eers-ge-borenes', 'goeder-tieren-heid',
-            'ver-slaan','ver-plet-ter', 'lank-moedig-heid','lyd-saam-heid',
-            'on-der-tussen', 'oop-ge-sny')
-        for h in hypenateme:
-            text=h.sub(r'\1\\-\2',text)
-        for h in hyphenwords:
-            text=text.replace(h.replace('-',''),h.replace('-','\\-'))
+        utext=re.sub(r"([A-Z]{2,})(\s*)", self.sub_format_smallcaps, utext)
+        text=utext.encode('utf-8')
+        # hyphenate_regexes = (
+        #     re.compile('([a-z])(honderd|duisend|miljoen)') , re.compile(r'(skrif)(geleerde)') )
+        # hyphenwords=('skrif-geleerde', 'ge-reg-tig-heid', 'Goeder-tieren-heid',
+        #     'Egipte-naars', 'eers-ge-borenes', 'goeder-tieren-heid',
+        #     'ver-slaan','ver-plet-ter', 'lank-moedig-heid','lyd-saam-heid',
+        #     'on-der-tussen', 'oop-ge-sny', 'familie-hoofde', 'dubbel-draad',
+        #     'tent-doeke', 'tent-doek', 'purper-rooi', 'bloed-rooi',)
+        # for regex in hyphenate_regexes:
+        #     text=regex.sub(r'\1\\-\2',text)
+        # for word in hyphenwords:
+        #     text=text.replace(word.replace('-',''),word.replace('-','\\-'))
         return text
 
+    def singular(self, book):
+        if book=='Psalms': return 'Psalm'
+        return book
     def parsebooks(self):
         obook=''
         ochapter=''
@@ -216,7 +226,7 @@ class bibleformatter:
                     yield { 'chaptertext': ''.join(chaptertext), 'book':obook, 'chapter': ochapter }
                     chaptertext=[]
                 if book!=obook:
-                    yield { 'newbook': True, 'book': book }
+                    yield { 'newbook': True, 'book': book  }
                 chaptertext.append(self.chapternumber(book,chapter))
             if verse!='1':
                 if self.isnewparagraph(book,chapter,verse,text):
@@ -237,6 +247,8 @@ def sidebysidechapters():
     en=bibleformatter('../kjv.txt')
     ochapter=''
     for left,right in itertools.izip( en.parsebooks(), af.parsebooks() ):
+        left['book_s']=en.singular(left.get('book',''))  # singular
+        right['book_s']=af.singular(right.get('book',''))  # singular
         if left.has_key('newbook'):
             # yield r'\biblchapter{'+left['book']+' / ' + right['book']+'}\n'  # TeX chapter, which is a book of the Bible
             yield r'\biblnewbook{'+left['book'] + '}{' + right['book'] + '}%\n' 
@@ -246,12 +258,13 @@ def sidebysidechapters():
             if ochapter and chapter!=ochapter:
                 o += r'\biblendchapter%' + '\n'
             if chapter!=ochapter:
-                o += r'\biblpagetitles' + ('{%(book)s %(chapter)s}' % left) \
-                                       + ('{%(book)s %(chapter)s}' % right) + '%\n'
-            o+=   r'\begin{paracol}{2}' \
+                o += r'\biblpagetitles' + ('{%(book_s)s %(chapter)s}' % left) \
+                                        + ('{%(book_s)s %(chapter)s}' % right) + '%\n'
+            o+=   r'\begin{paracol}{2}\biblleftcolumn{english}' \
                 + left['chaptertext'] \
-                + r'\switchcolumn' + '\n' \
+                + r'\biblrightcolumn{afrikaans}%' + '\n' \
                 + right['chaptertext'] \
+                + r'\bibldonecolumns' + '\n' \
                 + '\end{paracol}%\n' ; # r'\selectlanguage{dutch}\n' 
             yield o
 

@@ -17,6 +17,8 @@ Source data requirements:
     List of Which books have but one chapter (no chapter title)
     Afrikaans hypenation rules
     Paragraph break information for Afrikaans psalm numbering
+    Afrikaans accent capitals to regular rules
+    Lower casing of opening letter of verses that do not end with full stop.
 
 Typesetting requirements:
 
@@ -234,3 +236,6 @@ BUGS:
 
     1953: Hosea 12 has borrowed a verse from Hosea 11
     1953: Psalm titles take up their own verse ... sometimes
+
+    \textsc{Lord} doesn't seem to do that in Times New Roman 10
+
