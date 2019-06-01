@@ -16,7 +16,16 @@ fi
 splitlines() {
     if [ "$SPLITLINES" ] ; then
         WIDTH=$( stty -a </dev/tty | grep -Po 'columns \d+' | grep -Po '\d+' )
-        perl -pe '$width='$WIDTH'-1; $decision=$width-20; s/(.{$decision,$width})( |$)/$1.(" "x($width-length($1)+1))/eg ;s/  *$//; '; 
+        perl -pe '
+            sub esclen($) {
+                my ($str) = @_;
+                $str =~ s/[\[\]]//g;
+                return length($str);
+            }
+            $width='$WIDTH'-1;
+            $decision=$width-20;
+            s/(([\[\]]*.[\[\]]*){$decision,$width})( |$)/$1.(" "x($width-esclen($1)+1))/eg ;
+            s/  *$//; '; 
     else
         cat
     fi
@@ -34,9 +43,11 @@ format() {
     #   # Double line spacing:
     #   sed 's/^/\n/' |
     #   fmt -s -w $WIDTH |
+        $DOUBLELINE |
         sed 's/  *$//' |
         striprefs |
         splitlines |
+        $ITALICS |
         grep $GREPOPTS $COLOUR "$COLOURREGEX" |
         GREP_COLORS="ms=32:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36" grep $COLOUR -P '^.*\d+:\d+|$' |
         $PAGER
@@ -51,6 +62,40 @@ striprefs() {
     fi
 }
 
+doubleline() {
+    sed 's/$/\n/'
+}
+
+italics_sed() {
+  ESC=$'\e' 
+  sed "s:\[:$ESC[1m:g; s:\]:$ESC[0m:g" 
+}
+
+italics_strip() {
+  tr -d '[]'
+}
+
+italics_utf8() {
+python <( cat << \EOF
+# -*- coding: utf-8 -*-
+latin = 'a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z'.split()
+italic = '𝑎 𝑏 𝑐 𝑑 𝑒 𝑓 𝑔 ℎ 𝑖 𝑗 𝑘 𝑙 𝑚 𝑛 𝑜 𝑝 𝑞 𝑟 𝑠 𝑡 𝑢 𝑣 𝑤 𝑥 𝑦 𝑧 𝐴 𝐵 𝐶 𝐷 𝐸 𝐹 𝐺 𝐻 𝐼 𝐽 𝐾 𝐿 𝑀 𝑁 𝑂 𝑃 𝑄 𝑅 𝑆 𝑇 𝑈 𝑉 𝑊 𝑋 𝑌 𝑍'.split()
+import sys,re
+def utf_italicise(m):
+  o=[]
+  for c in m.group(1):
+    try:
+      o.append(italic[latin.index(c)])
+    except:
+      o.append(c)
+  return ''.join(o)
+brackets_re=re.compile(r'\[(.*?)\]');
+for line in sys.stdin:
+  sys.stdout.write(brackets_re.sub(utf_italicise,line))
+EOF
+)
+}
+
 ###########
 GREPOPTS='-Pi'
 BEGIN='\b'
@@ -58,30 +103,40 @@ CONTEXT='-C 5'
 SPLITLINES=
 STRIPREFS=
 PAGER='less -ifR'
+DOUBLELINE=cat
+ITALICS=italics_sed
 
 parseopt() {
     case "$OPTIONCHAR" in
+        i) BIBLE=$OPTARG ;;
         0) CONTEXT="" ;;
         [1-9]) CONTEXT="-C $OPTIONCHAR" ;;
         a) BIBLE=$(dirname $0)/af1953.txt ; SPLITLINES= ;;
-        t) BIBLE=$(dirname $0)/tr1550.txt ; SPLITLINES= ;;  # UTF-8 splitting doesn't work well
+        d) DOUBLELINE=doubleline ;;
+        t) BIBLE=$(dirname $0)/tr1550.txt ; SPLITLINES= ; BEGIN= ;;  # UTF-8 splitting doesn't work well
         w) GREPOPTS="${GREPOPTS}w" ;;
         s) SPLITLINES=yes ;;
         r) STRIPREFS=yes ; COLOURREGEX='$' ;;
+        R) STRIPVERSE=yes ; CONTEXT=""; COLOURREGEX='$' ; PAGER=cat ; COLOUR_HIGHLIGHT='' ;;
+        b) MOVEREFS=yes; VERSEREF_RE='\(.*?\d+:\d+\)|$' ;;
         p) BEGIN='' ;;
         o) PAGER=cat ;;
         *)
             echo "Usage: [$0] [options] [search words] ..."
             echo ""
             echo "  -r  omit verse references"
+            echo "  -R  ONLY verse references"
+            echo "  -b  put the references (at the back)"
             echo "  -w  word search"
             echo "  -s  word-wrap to terminal size (automatic if output to terminal)"
             echo "  -p  partial word match (don't search word in any part of a word)"
-            echo "  -0  zero verses context during search
-            echo "  -1 .. -9  more verses context
+            echo "  -0  zero verses context during search"
+            echo "  -1 .. -9  more verses context"
             echo "  -t  use tr1550 greek text"
             echo "  -a  use af1953 afrikaans text"
             echo "  -o  don't pipe to less, just to stdout"
+            echo "  -d  double line spacing"
+            echo "  -i [file] specify input file"
             echo ""
             echo "Shows extracts having all the terms in the adjoining context"
             echo "With no options, display the text with highlighted verses using less"
@@ -94,7 +149,7 @@ parseopt() {
     esac
 }
 
-while getopts "ostpawr0123456789" OPTIONCHAR ; do
+while getopts "i:Rostpawrd0123456789" OPTIONCHAR ; do
     parseopt
 done
 shift $((OPTIND-1))
@@ -113,9 +168,11 @@ parseswitches() {
 COLOURREGEX='$'
 if [ "$1" ] ; then
     # Late switches processing, Linux style:
+    ARGS=""
     for ARG in "$@"; do
         case "$ARG" in
             -*) parseswitches "$ARG" ;;
+            *) ARGS="$ARGS $ARG" ;;
         esac
     done
     EVALS=''
@@ -135,6 +192,6 @@ elif tty -s ; then
     tr -d $'\r' < $BIBLE | format
 else
     # Just remove linefeeds and pipe to stdout
-    tr -d $'\r' < $BIBLE
+    tr -d '[]'$'\r' < $BIBLE
 fi 
 
