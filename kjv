@@ -12,6 +12,27 @@ else
     CAT=1
 fi
 
+case "$GREP_COLOURS" in
+    *";ne"*) true ;; # whatever
+    *) GREP_COLORS="$GREP_COLORS;ne" ; export GREP_COLORS ;;
+esac
+
+memory() {
+    sed '
+        s/ \([^0-9A-Za-z]*\)\([A-Za-z]\)[^ .;:,)?]*/\1\2/g;
+                            s/\(:[0-9]\+\|[.;:,)?]\+\)/\1 /g;
+        s/\([A-Za-z]\{16\}\)\([A-Za-z]\{16,\}\)/\1 \2/g;
+        s/\([A-Za-z]\{14\}\)\([A-Za-z]\{14,\}\)/\1 \2/g;
+        s/\([A-Za-z]\{12\}\)\([A-Za-z]\{12,\}\)/\1 \2/g;
+        s/\([A-Za-z]\{10\}\)\([A-Za-z]\{10,\}\)/\1 \2/g;
+        '
+    # 1 leading punctuation plus word plus trailing punctuation
+    # 2 replace space after punctuation
+    # 3 long word to two shorter words
+    # Does oddly on this ...
+    # Mark 6:22 And when the daughter of the said Herodias came in, and danced, and pleased Herod and them that sat with him, the king said unto the damsel, Ask of me whatsoever thou wilt, and I will give it thee.
+}
+
 # Do word-wrap because less cannot
 splitlines() {
     if [ "$SPLITLINES" ] ; then
@@ -34,34 +55,26 @@ splitlines() {
 
 # 
 format() {
+    # echo 1>&2 "mef $? $ITALICS $CAT"
+    RSTRIP="sed 's/  *\$//'"
     if [ $CAT ] ; then
-        cat
+        eval "$RSTRIP $ITALICS $MOVEREFS $STRIPREFS $MEMORY"
     else
         # pipe the output to a browser
         WIDTH=$( stty -a </dev/tty | grep -Po 'columns \d+' | grep -Po '\d+' )
-
-    #   # Double line spacing:
-    #   sed 's/^/\n/' |
-    #   fmt -s -w $WIDTH |
-        $DOUBLELINE |
-        sed 's/  *$//' |
-        striprefs |
-        splitlines |
-        $ITALICS |
+        eval "$RSTRIP $DOUBLELINE $MOVEREFS $STRIPREFS $SPLITLINES $ITALICS $MEMORY" |
         grep $GREPOPTS $COLOUR "$COLOURREGEX" |
-        GREP_COLORS="ms=32:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36" grep $COLOUR -P '^.*\d+:\d+|$' |
+        GREP_COLORS="ms=32:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36:ne" grep $COLOUR -P "$VERSEREF_RE" |
         $PAGER
     fi
 }
 
 striprefs() {
-    if [ $STRIPREFS ] ; then
-        sed 's/^[^:]*:[^ ]* //'
-    else
-        cat
-    fi
+    sed 's/^[^:]*:[^ ]* //'
 }
-
+moverefs() {
+    sed 's/\(^[^:]*:[^ ]*\) \(.*\)/\2 (\1)/'
+}
 doubleline() {
     sed 's/$/\n/'
 }
@@ -102,25 +115,29 @@ BEGIN='\b'
 CONTEXT='-C 5'
 SPLITLINES=
 STRIPREFS=
+MOVEREFS=
 PAGER='less -ifR'
-DOUBLELINE=cat
-ITALICS=italics_sed
+DOUBLELINE=
+ITALICS="|italics_sed"
+tty -s 2>&0 || ITALICS="|italics_strip"
+VERSEREF_RE='^.*\d+:\d+|$'  # green verse at the beginning of the line
 
 parseopt() {
     case "$OPTIONCHAR" in
-        i) BIBLE=$OPTARG ;;
+        i) BIBLE=$OPTARG ; BEGIN= ;;
         0) CONTEXT="" ;;
         [1-9]) CONTEXT="-C $OPTIONCHAR" ;;
         a) BIBLE=$(dirname $0)/af1953.txt ; SPLITLINES= ;;
-        d) DOUBLELINE=doubleline ;;
+        d) DOUBLELINE='|doubleline' ;;
         t) BIBLE=$(dirname $0)/tr1550.txt ; SPLITLINES= ; BEGIN= ;;  # UTF-8 splitting doesn't work well
         w) GREPOPTS="${GREPOPTS}w" ;;
-        s) SPLITLINES=yes ;;
-        r) STRIPREFS=yes ; COLOURREGEX='$' ;;
-        R) STRIPVERSE=yes ; CONTEXT=""; COLOURREGEX='$' ; PAGER=cat ; COLOUR_HIGHLIGHT='' ;;
-        b) MOVEREFS=yes; VERSEREF_RE='\(.*?\d+:\d+\)|$' ;;
+        s) SPLITLINES="|splitlines" ;;
+        r) STRIPREFS="|striprefs" ; COLOURREGEX='$' ;;
+        R) STRIPREFS="|striprefs" ; CONTEXT=""; COLOURREGEX='$' ; PAGER=cat ; COLOUR_HIGHLIGHT='' ;;
+        b) MOVEREFS="|moverefs"; VERSEREF_RE='\(.*?\d+:\d+\)|$' ;;
         p) BEGIN='' ;;
-        o) PAGER=cat ;;
+        o) ITALICS="|italics_strip"; PAGER=cat ;;
+        m) ITALICS="|italics_strip"; MEMORY="|memory"  ;;
         *)
             echo "Usage: [$0] [options] [search words] ..."
             echo ""
@@ -128,6 +145,7 @@ parseopt() {
             echo "  -R  ONLY verse references"
             echo "  -b  put the references (at the back)"
             echo "  -w  word search"
+            echo "  -m  memory version"
             echo "  -s  word-wrap to terminal size (automatic if output to terminal)"
             echo "  -p  partial word match (don't search word in any part of a word)"
             echo "  -0  zero verses context during search"
@@ -149,7 +167,7 @@ parseopt() {
     esac
 }
 
-while getopts "i:Rostpawrd0123456789" OPTIONCHAR ; do
+while getopts "i:Rostpawbrd0123456789m" OPTIONCHAR ; do
     parseopt
 done
 shift $((OPTIND-1))
@@ -186,6 +204,7 @@ if [ "$1" ] ; then
         esac
     done
     EVALS="tr -d $'\r' < $BIBLE $EVALS"
+    #echo 1>&2 "$EVALS"
     eval "$EVALS" | format
 elif tty -s ; then
     # Remove linefeeds and display in less
