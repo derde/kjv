@@ -2,6 +2,7 @@
 
 # KJV bible by defailt
 BIBLE=$(dirname $0)/kjv.txt
+SEARCHVERSEREFS=
 
 # Show colours in terminal mode, but not in pipe mode
 if tty -s 0>&1 ; then
@@ -63,7 +64,7 @@ format() {
         # pipe the output to a browser
         WIDTH=$( stty -a </dev/tty | grep -Po 'columns \d+' | grep -Po '\d+' )
         eval "$RSTRIP $DOUBLELINE $MOVEREFS $STRIPREFS $SPLITLINES $ITALICS $MEMORY" |
-        grep $GREPOPTS $COLOUR "$COLOURREGEX" |
+        GREP_COLORS="ms=31:mc=01;32:sl=:cx=:fn=34:ln=31:bn=31:se=35:ne" grep $GREPOPTS $COLOUR "$COLOURREGEX" |
         GREP_COLORS="ms=32:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36:ne" grep $COLOUR -P "$VERSEREF_RE" |
         $PAGER
     fi
@@ -71,6 +72,9 @@ format() {
 
 striprefs() {
     sed 's/^[^:]*:[^ ]* //'
+}
+striptext() {
+    sed 's/\(:[0-9]*\).*/\1/'
 }
 moverefs() {
     sed 's/\(^[^:]*:[^ ]*\) \(.*\)/\2 (\1)/'
@@ -125,6 +129,7 @@ VERSEREF_RE='^.*\d+:\d+|$'  # green verse at the beginning of the line
 parseopt() {
     case "$OPTIONCHAR" in
         i) BIBLE=$OPTARG ; BEGIN= ;;
+        v) SEARCHVERSEREFS=1; CONTEXT='' ;;
         0) CONTEXT="" ;;
         [1-9]) CONTEXT="-C $OPTIONCHAR" ;;
         a) BIBLE=$(dirname $0)/af1953.txt ; SPLITLINES= ;;
@@ -133,7 +138,7 @@ parseopt() {
         w) GREPOPTS="${GREPOPTS}w" ;;
         s) SPLITLINES="|splitlines" ;;
         r) STRIPREFS="|striprefs" ; COLOURREGEX='$' ;;
-        R) STRIPREFS="|striprefs" ; CONTEXT=""; COLOURREGEX='$' ; PAGER=cat ; COLOUR_HIGHLIGHT='' ;;
+        R) STRIPREFS="|striptext" ; CONTEXT=""; COLOURREGEX='$' ; PAGER=cat ; COLOUR_HIGHLIGHT='' ;;
         b) MOVEREFS="|moverefs"; VERSEREF_RE='\(.*?\d+:\d+\)|$' ;;
         p) BEGIN='' ;;
         o) ITALICS="|italics_strip"; PAGER=cat ;;
@@ -155,6 +160,7 @@ parseopt() {
             echo "  -o  don't pipe to less, just to stdout"
             echo "  -d  double line spacing"
             echo "  -i [file] specify input file"
+            echo "  -v 'Book 1:1'  search verse references"
             echo ""
             echo "Shows extracts having all the terms in the adjoining context"
             echo "With no options, display the text with highlighted verses using less"
@@ -167,7 +173,7 @@ parseopt() {
     esac
 }
 
-while getopts "i:Rostpawbrd0123456789m" OPTIONCHAR ; do
+while getopts "vi:Rostpawbrd0123456789m" OPTIONCHAR ; do
     parseopt
 done
 shift $((OPTIND-1))
@@ -194,12 +200,19 @@ if [ "$1" ] ; then
         esac
     done
     EVALS=''
+    PATTERN=''
     for REGEX in "$@"; do
         case "$REGEX" in
           -*) true ;;
           *)
-            EVALS="$EVALS | grep $GREPOPTS $CONTEXT '$BEGIN$REGEX' "
-            COLOURREGEX="$BEGIN$REGEX|$COLOURREGEX"
+            if [ "$SEARCHVERSEREFS" ] ; then
+                if [ "$PATTERN" ] ; then PATTERN="$PATTERN|^$REGEX " ; else PATTERN="^$REGEX "; fi
+                EVALS="|grep $GREPOPTS $CONTEXT '$PATTERN' "
+                COLOURREGEX="$BEGIN$PATTERN|\$"
+            else
+                EVALS="$EVALS | grep $GREPOPTS $CONTEXT '$BEGIN$REGEX' "
+                COLOURREGEX="$BEGIN$REGEX|$COLOURREGEX"
+            fi
             ;;
         esac
     done
